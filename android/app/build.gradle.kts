@@ -30,17 +30,17 @@ android {
         versionName = flutter.versionName
     }
 
-    flavorDimensions "app"
+    flavorDimensions += "app"
     productFlavors {
-        book_tracker {
-            dimension "app"
-            applicationId "com.booktracker.mobileApp"
-            resValue "string", "app_name", "Book Tracker"
+        create("book_tracker") {
+            dimension = "app"
+            applicationId = "com.booktracker.mobileApp"
+            resValue("string", "app_name", "Book Tracker")
         }
-        lead_capture {
-            dimension "app"
-            applicationId "com.expensetracker.vcaptureAppV2"
-            resValue "string", "app_name", "Expense Tracker"
+        create("expense_tracker") {
+            dimension = "app"
+            applicationId = "com.expensetracker.mobileApp"
+            resValue("string", "app_name", "Expense Tracker")
         }
     }
 
