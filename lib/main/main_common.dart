@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_multi_apps/config/app_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/routes.dart';
 import '../config/theme.dart';
+import '../core/utils/app_utils.dart';
 
 late AppConfiguration appconfig;
 
@@ -11,17 +14,42 @@ void mainCommon({required AppFlavor flavor}) {
   runApp(const AppMainCommon());
 }
 
-class AppMainCommon extends StatelessWidget {
+class AppMainCommon extends StatefulWidget {
   const AppMainCommon({super.key});
+
+  @override
+  State<AppMainCommon> createState() => _AppMainCommonState();
+}
+
+class _AppMainCommonState extends State<AppMainCommon> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _setOrientations();
+    });
+  }
+
+  Future<void> _setOrientations() async {
+    await setDeviceOrientations(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: appconfig.appName,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.getLightTheme(),
-      darkTheme: AppTheme.getDarkTheme(),
-      // themeMode: ref.watch(isDarkModeProvider) ? ThemeMode.dark : ThemeMode.light,
-      routerConfig: router,
+    return ScreenUtilInit(
+      designSize: getScreenSize(context),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp.router(
+          title: appconfig.appName,
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.getLightTheme(),
+          darkTheme: AppTheme.getDarkTheme(),
+          // themeMode: ref.watch(isDarkModeProvider) ? ThemeMode.dark : ThemeMode.light,
+          routerConfig: router,
+        );
+      }
     );
   }
 }
