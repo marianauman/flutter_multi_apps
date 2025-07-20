@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_multi_apps/config/app_config.dart';
+import 'package:flutter_multi_apps/core/providers/theme_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/routes.dart';
@@ -11,17 +13,17 @@ late AppConfiguration appconfig;
 
 void mainCommon({required AppFlavor flavor}) {
   appconfig = AppConfiguration.getInstance(flavor);
-  runApp(const AppMainCommon());
+  runApp(ProviderScope(child: const AppMainCommon()));
 }
 
-class AppMainCommon extends StatefulWidget {
+class AppMainCommon extends ConsumerStatefulWidget {
   const AppMainCommon({super.key});
 
   @override
-  State<AppMainCommon> createState() => _AppMainCommonState();
+  ConsumerState<AppMainCommon> createState() => _AppMainCommonState();
 }
 
-class _AppMainCommonState extends State<AppMainCommon> {
+class _AppMainCommonState extends ConsumerState<AppMainCommon> {
   @override
   void initState() {
     super.initState();
@@ -46,7 +48,7 @@ class _AppMainCommonState extends State<AppMainCommon> {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.getLightTheme(),
           darkTheme: AppTheme.getDarkTheme(),
-          // themeMode: ref.watch(isDarkModeProvider) ? ThemeMode.dark : ThemeMode.light,
+          themeMode: ref.watch(themeModeProvider),
           routerConfig: router,
         );
       }
