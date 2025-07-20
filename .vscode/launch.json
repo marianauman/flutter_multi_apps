@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Launch book_tracker",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main/main_book_tracker.dart",
+            "args": ["--flavor", "book_tracker", "--target", "lib/main/main_book_tracker.dart"]
+        },
+        {
+            "name": "Launch expense_tracker",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main/main_expense_tracker.dart",
+            "args": ["--flavor", "expense_tracker", "--target", "lib/main/main_expense_tracker.dart"]
+        },
+    ]
+}

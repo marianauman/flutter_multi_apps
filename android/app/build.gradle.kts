@@ -30,6 +30,20 @@ android {
         versionName = flutter.versionName
     }
 
+    flavorDimensions "app"
+    productFlavors {
+        book_tracker {
+            dimension "app"
+            applicationId "com.booktracker.mobileApp"
+            resValue "string", "app_name", "Book Tracker"
+        }
+        lead_capture {
+            dimension "app"
+            applicationId "com.expensetracker.vcaptureAppV2"
+            resValue "string", "app_name", "Expense Tracker"
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
