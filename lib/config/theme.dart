@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../core/color_constants.dart';
+import '../main/main_common.dart';
 
 class AppColors extends ChangeNotifier {
-  Color _primary = ColorConstants.primary;
+  Color _primary = appconfig.primaryColor;
   Color get primary => _primary;
   void setPrimary(Color color) {
     _primary = color;
