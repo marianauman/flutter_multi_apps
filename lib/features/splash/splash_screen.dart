@@ -22,6 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('${appconfig.appName} SplashScreen 11');
+    return Text('${appconfig.appName} SplashScreen');
   }
 }
