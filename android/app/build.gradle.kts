@@ -35,12 +35,12 @@ android {
         create("book_tracker") {
             dimension = "app"
             applicationId = "com.booktracker.mobileApp"
-            resValue("string", "app_name", "Book Tracker")
+            resValue("string", "app_name", "ReadMate")
         }
         create("expense_tracker") {
             dimension = "app"
             applicationId = "com.expensetracker.mobileApp"
-            resValue("string", "app_name", "Expense Tracker")
+            resValue("string", "app_name", "PennyPilot")
         }
     }
 
