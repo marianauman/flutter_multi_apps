@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/config/app_config.dart';
 
 import '../config/routes.dart';
+import '../config/theme.dart';
 
 late AppConfiguration appconfig;
 
@@ -17,8 +18,8 @@ class AppMainCommon extends StatelessWidget {
     return MaterialApp.router(
       title: appconfig.appName,
       debugShowCheckedModeBanner: false,
-      // theme: AppTheme.getLightTheme(),
-      // darkTheme: AppTheme.getDarkTheme(),
+      theme: AppTheme.getLightTheme(),
+      darkTheme: AppTheme.getDarkTheme(),
       // themeMode: ref.watch(isDarkModeProvider) ? ThemeMode.dark : ThemeMode.light,
       routerConfig: router,
     );
