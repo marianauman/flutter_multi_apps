@@ -1,8 +1,12 @@
 // App Route definitions
 
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_apps/config/app_config.dart';
 import 'package:go_router/go_router.dart';
+import '../features/book_tracker/book_tracker_home_screen.dart';
+import '../features/expense_tracker/expense_tracker_home_screen.dart';
 import '../features/splash/splash_screen.dart';
+import '../main/main_common.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -15,25 +19,17 @@ final GoRouter router = GoRouter(
         return const SplashScreen();
       },
     ),
-    // GoRoute(
-    //   path: appconfig.homeScreenPath,
-    //   builder: (BuildContext context, GoRouterState state) {
-    //     switch (appconfig.flavor) {
-    //       case AppFlavor.orderTaking:
-    //         return isTablet(context)
-    //             ? const OrderTakingHomeScreenTab()
-    //             : const OrderTakingHomeScreen();
-    //       case AppFlavor.leadCapture:
-    //         return isTablet(context)
-    //             ? const TabLeadCaptureHomeScreen()
-    //             : const LeadCaptureHomeScreen();
-    //       default:
-    //         return isTablet(context)
-    //             ? const HomeScreenTab()
-    //             : const HomeScreen();
-    //     }
-    //   },
-    // ),
+    GoRoute(
+      path: appconfig.homeScreenPath,
+      builder: (BuildContext context, GoRouterState state) {
+        switch (appconfig.flavor) {
+          case AppFlavor.expenseTracker:
+            return const ExpenseTrackerHomeScreen();
+          case AppFlavor.bookTracker:
+            return const BookTrackerHomeScreen();
+        }
+      },
+    ),
     GoRoute(
       path: Routes.dummyRoute,
       builder: (BuildContext context, GoRouterState state) {
@@ -46,6 +42,7 @@ final GoRouter router = GoRouter(
 class Routes {
   static const String splash = '/';
   // static const String login = '/login';
+  static final String homeScreen = appconfig.homeScreenPath;
   static const String dummyRoute = '/dummyRoute';
 }
 

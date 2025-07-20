@@ -3,7 +3,7 @@ import '../../../main/main_common.dart';
 class AssetsConstants {
   //Base Paths
   static const String baseAssetsPath = 'assets/';
-  static const String baseIconPath = 'assets/icons/';
+  static const String baseAssetsCommonPath = '${baseAssetsPath}common/';
 
   //Flavour based assets i.e book_tracker, expense_tracker, etc
   static final String splash = '$baseAssetsPath${appconfig.flavorAssetsFolder}/splash.json';
