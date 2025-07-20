@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/color_constants.dart';
+import '../core/constants/color_constants.dart';
 import '../main/main_common.dart';
 
 class AppColors extends ChangeNotifier {

@@ -1,7 +1,7 @@
 // App Base Configuration to load the flavor specifics
 
 import 'dart:ui';
-import '../core/color_constants.dart';
+import '../core/constants/color_constants.dart';
 
 enum AppFlavor {
   bookTracker,

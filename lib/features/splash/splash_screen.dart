@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import '../../core/constants/assets_constants.dart';
 import '../../main/main_common.dart';
 import 'splash_handler.dart';
 
@@ -23,7 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('${appconfig.appName} SplashScreen')),
+      backgroundColor: appconfig.primaryColor,
+      body: Center(
+        child: Lottie.asset(AssetsConstants.splash, width: 300, height: 300),
+      ),
     );
   }
 }
