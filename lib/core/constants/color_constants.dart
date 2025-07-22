@@ -6,6 +6,11 @@ class ColorConstants {
   static const primaryExpenseTracker = Color.fromARGB(255, 132, 10, 141);
 
   // Surface colors
-  static const scaffoldBackgroundColorLight = Color.fromARGB(255, 248, 249, 250);
-  static const scaffoldBackgroundColorDark = Color.fromARGB(255, 38, 42, 51);
+  static const scaffoldBackgroundColorLight = Color.fromARGB(
+    255,
+    225,
+    229,
+    233,
+  );
+  static const scaffoldBackgroundColorDark = Color.fromARGB(255, 50, 55, 67);
 }

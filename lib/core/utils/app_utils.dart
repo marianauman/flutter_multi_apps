@@ -36,3 +36,7 @@ hideKeyboard(BuildContext context) {
   FocusManager.instance.primaryFocus?.unfocus();
 }
 
+bool isDarkMode(BuildContext context) {
+  return Theme.of(context).brightness == Brightness.dark;
+}
+

@@ -18,8 +18,15 @@ class AppTheme {
       primaryColor: AppColors().primary,
       brightness: Brightness.light,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorLight,
+      appBarTheme: AppBarTheme(
+        backgroundColor: ColorConstants.scaffoldBackgroundColorLight,
+      ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors().primary,
+        primary: AppColors().primary,
+        onPrimary: Colors.white,
+        secondary: AppColors().primary,
+        onSecondary: Colors.white,
         brightness: Brightness.light,
       ),
     );
@@ -31,8 +38,12 @@ class AppTheme {
       primaryColor: AppColors().primary,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorDark,
+      appBarTheme: AppBarTheme(
+        backgroundColor: ColorConstants.scaffoldBackgroundColorDark,
+      ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors().primary,
+        primary: AppColors().primary,
         brightness: Brightness.dark,
       ),
     );
