@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/config/app_config.dart';
+import 'package:flutter_multi_apps/core/utils/app_utils.dart';
 import 'package:go_router/go_router.dart';
-import '../features/book_tracker/book_tracker_home_screen.dart';
+import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen.dart';
+import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen_tab.dart';
 import '../features/expense_tracker/expense_tracker_home_screen.dart';
 import '../features/splash/splash_screen.dart';
 import '../main/main_common.dart';
@@ -20,13 +22,15 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: appconfig.homeScreenPath,
+      path: Routes.dashboard,
       builder: (BuildContext context, GoRouterState state) {
         switch (appconfig.flavor) {
           case AppFlavor.expenseTracker:
             return const ExpenseTrackerHomeScreen();
           case AppFlavor.bookTracker:
-            return const BookTrackerHomeScreen();
+            return isTablet(context)
+                ? const BookTrackerDashboardScreenTab()
+                : const BookTrackerDashboardScreen();
         }
       },
     ),
@@ -42,7 +46,7 @@ final GoRouter router = GoRouter(
 class Routes {
   static const String splash = '/';
   // static const String login = '/login';
-  static final String homeScreen = appconfig.homeScreenPath;
+  static final String dashboard = appconfig.dashboardPath;
   static const String dummyRoute = '/dummyRoute';
 }
 

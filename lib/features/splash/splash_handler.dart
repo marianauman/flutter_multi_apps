@@ -9,6 +9,6 @@ class SplashHandler {
 
   static Future<void> _navigateToHomeScreen() async {
     await Future.delayed(_splashDelay);
-    NavigationService.pushReplacement(Routes.homeScreen);
+    NavigationService.pushReplacement(Routes.dashboard);
   }
 }

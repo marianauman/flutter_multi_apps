@@ -12,14 +12,14 @@ class AppConfiguration {
   final AppFlavor flavor;
   final String appName;
   final String flavorAssetsFolder;
-  final String homeScreenPath;
+  final String dashboardPath;
   final Color primaryColor;
 
   const AppConfiguration._({
     required this.flavor,
     required this.appName,
     required this.flavorAssetsFolder,
-    required this.homeScreenPath,
+    required this.dashboardPath,
     required this.primaryColor,
   });
 
@@ -27,7 +27,7 @@ class AppConfiguration {
     flavor: AppFlavor.bookTracker,
     appName: 'Book Tracker',
     flavorAssetsFolder: 'book_tracker',
-    homeScreenPath: '/bookTrackerHome',
+    dashboardPath: '/bookTrackerDashboard',
     primaryColor: ColorConstants.primaryBookTracker,
   );
 
@@ -35,7 +35,7 @@ class AppConfiguration {
     flavor: AppFlavor.expenseTracker,
     appName: 'Expense Tracker',
     flavorAssetsFolder: 'expense_tracker',
-    homeScreenPath: '/expenseTrackerHome',
+    dashboardPath: '/expenseTrackerDashboard',
     primaryColor: ColorConstants.primaryExpenseTracker,
   );
 
