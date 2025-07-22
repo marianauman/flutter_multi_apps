@@ -28,6 +28,9 @@ class AppTheme {
         secondary: AppColors().primary,
         onSecondary: Colors.white,
         brightness: Brightness.light,
+        surface: ColorConstants.lightSurface,
+        onSurface: ColorConstants.lightOnSurface,
+        surfaceContainer: ColorConstants.lightSurfaceContainer,
       ),
     );
   }
@@ -45,6 +48,9 @@ class AppTheme {
         seedColor: AppColors().primary,
         primary: AppColors().primary,
         brightness: Brightness.dark,
+        surface: ColorConstants.darkSurface,
+        onSurface: ColorConstants.darkOnSurface,
+        surfaceContainer: ColorConstants.darkSurfaceContainer,
       ),
     );
   }

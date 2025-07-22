@@ -20,7 +20,6 @@ class BaseScreen extends StatelessWidget {
   final bool automaticallyImplyLeading;
   final bool? centerTitle;
   final PreferredSizeWidget? overrideAppBar;
-  final String semanticLabel;
   final bool resizeToAvoidBottomInset;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
@@ -35,7 +34,6 @@ class BaseScreen extends StatelessWidget {
   const BaseScreen({
     super.key,
     this.child,
-    required this.semanticLabel,
     this.title,
     this.isLoading = false,
     this.loaderScreen,
