@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/config/text_styles.dart';
 import 'package:flutter_multi_apps/shared/widgets/base_screen.dart';
@@ -25,16 +26,16 @@ class _BookTrackerDashboardScreenTabState
 
   final List<NavigationRailDestination> _destinations = [
     NavigationRailDestination(
-      icon: const Icon(Icons.home),
+      icon: const Icon(CupertinoIcons.house_fill),
       label: AppText.body1(text: 'Home'),
     ),
     NavigationRailDestination(
-      icon: const Icon(Icons.explore),
+      icon: const Icon(Icons.search),
       label: AppText.body1(text: 'Discover'),
       padding: EdgeInsets.symmetric(vertical: 20.r),
     ),
     NavigationRailDestination(
-      icon: const Icon(Icons.menu),
+      icon: const Icon(CupertinoIcons.line_horizontal_3),
       label: AppText.body1(text: 'Menu'),
     ),
   ];

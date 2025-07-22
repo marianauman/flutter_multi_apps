@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../config/text_styles.dart';
 import '../../../../config/theme.dart';
@@ -21,9 +22,18 @@ class _BookTrackerDashboardScreenState
   ];
 
   final List<BottomNavigationBarItem> _items = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Discover'),
-    BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),
+    BottomNavigationBarItem(
+      icon: Icon(CupertinoIcons.house_fill),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(CupertinoIcons.search),
+      label: 'Discover',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(CupertinoIcons.line_horizontal_3),
+      label: 'Menu',
+    ),
   ];
 
   Widget _bottomNavigationBar() {
