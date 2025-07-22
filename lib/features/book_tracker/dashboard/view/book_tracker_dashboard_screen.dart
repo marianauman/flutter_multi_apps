@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_apps/config/text_styles.dart';
-import 'package:flutter_multi_apps/shared/widgets/base_screen.dart';
-
+import '../../../../config/text_styles.dart';
+import '../../../../shared/widgets/base_screen.dart';
 class BookTrackerDashboardScreen extends StatefulWidget {
   const BookTrackerDashboardScreen({super.key});
 
@@ -20,21 +19,21 @@ class _BookTrackerDashboardScreenState
     Center(child: AppText.body1(text: 'Settings')),
   ];
 
-  final List<NavigationDestination> _destinations = [
-    NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-    NavigationDestination(icon: Icon(Icons.explore), label: 'Discover'),
-    NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
+  final List<BottomNavigationBarItem> _items = [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Discover'),
+    BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
   ];
 
   Widget _bottomNavigationBar() {
-    return NavigationBar(
-      selectedIndex: _currentIndex,
-      onDestinationSelected: (index) {
+    return BottomNavigationBar(
+      items: _items,
+      currentIndex: _currentIndex,
+      onTap: (index) {
         setState(() {
           _currentIndex = index;
         });
       },
-      destinations: _destinations,
     );
   }
 

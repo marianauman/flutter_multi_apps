@@ -1,9 +1,9 @@
 // App Route definitions
 
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_apps/config/app_config.dart';
-import 'package:flutter_multi_apps/core/utils/app_utils.dart';
 import 'package:go_router/go_router.dart';
+import '../config/app_config.dart';
+import '../core/utils/app_utils.dart';
 import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen.dart';
 import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen_tab.dart';
 import '../features/expense_tracker/expense_tracker_home_screen.dart';

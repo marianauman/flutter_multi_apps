@@ -14,9 +14,9 @@ class AppColors extends ChangeNotifier {
 class AppTheme {
   static ThemeData getLightTheme() {
     return ThemeData(
-      useMaterial3: true,
       primaryColor: AppColors().primary,
       brightness: Brightness.light,
+      splashFactory: NoSplash.splashFactory,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorLight,
       appBarTheme: AppBarTheme(
         backgroundColor: ColorConstants.scaffoldBackgroundColorLight,
@@ -37,9 +37,9 @@ class AppTheme {
 
   static ThemeData getDarkTheme() {
     return ThemeData(
-      useMaterial3: true,
       primaryColor: AppColors().primary,
       brightness: Brightness.dark,
+      splashFactory: NoSplash.splashFactory,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorDark,
       appBarTheme: AppBarTheme(
         backgroundColor: ColorConstants.scaffoldBackgroundColorDark,
@@ -47,6 +47,9 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors().primary,
         primary: AppColors().primary,
+        onPrimary: Colors.white,
+        secondary: AppColors().primary,
+        onSecondary: Colors.white,
         brightness: Brightness.dark,
         surface: ColorConstants.darkSurface,
         onSurface: ColorConstants.darkOnSurface,
