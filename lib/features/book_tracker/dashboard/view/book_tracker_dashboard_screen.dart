@@ -23,7 +23,7 @@ class _BookTrackerDashboardScreenState
   final List<BottomNavigationBarItem> _items = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Discover'),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+    BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),
   ];
 
   Widget _bottomNavigationBar() {
