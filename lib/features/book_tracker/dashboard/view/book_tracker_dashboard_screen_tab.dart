@@ -26,18 +26,15 @@ class _BookTrackerDashboardScreenTabState
   final List<NavigationRailDestination> _destinations = [
     NavigationRailDestination(
       icon: const Icon(Icons.home),
-      indicatorColor: AppColors().primary,
       label: AppText.body1(text: 'Home'),
     ),
     NavigationRailDestination(
       icon: const Icon(Icons.explore),
-      indicatorColor: AppColors().primary,
       label: AppText.body1(text: 'Discover'),
       padding: EdgeInsets.symmetric(vertical: 20.r),
     ),
     NavigationRailDestination(
       icon: const Icon(Icons.menu),
-      indicatorColor: AppColors().primary,
       label: AppText.body1(text: 'Menu'),
     ),
   ];
@@ -46,6 +43,9 @@ class _BookTrackerDashboardScreenTabState
     return NavigationRail(
       minWidth: 130.r,
       indicatorColor: AppColors().primary,
+      indicatorShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.r),
+      ),
       groupAlignment: -0.95,
       labelType: NavigationRailLabelType.all,
       selectedIconTheme: IconThemeData(
