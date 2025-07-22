@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/config/text_styles.dart';
 import 'package:flutter_multi_apps/shared/widgets/base_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BookTrackerDashboardScreenTab extends StatefulWidget {
   const BookTrackerDashboardScreenTab({super.key});
@@ -28,6 +29,7 @@ class _BookTrackerDashboardScreenTabState
     NavigationRailDestination(
       icon: const Icon(Icons.explore),
       label: AppText.body1(text: 'Discover'),
+      padding: EdgeInsets.symmetric(vertical: 20.r),
     ),
     NavigationRailDestination(
       icon: const Icon(Icons.settings),
@@ -37,8 +39,10 @@ class _BookTrackerDashboardScreenTabState
 
   Widget _sideNavigationBar() {
     return NavigationRail(
-      extended: true,
+      minWidth: 130.r,
+      indicatorColor: Colors.transparent,
       groupAlignment: -0.95,
+      labelType: NavigationRailLabelType.all,
       selectedIndex: _currentIndex,
       onDestinationSelected: (index) {
         setState(() {
