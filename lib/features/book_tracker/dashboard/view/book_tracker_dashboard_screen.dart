@@ -69,7 +69,7 @@ class _BookTrackerDashboardScreenState
     return BaseScreen(
       showAppBar: false,
       bottomNavigationBar: _bottomNavigationBar(),
-      child: _pages[_currentIndex],
+      child: IndexedStack(index: _currentIndex, children: _pages),
     );
   }
 }

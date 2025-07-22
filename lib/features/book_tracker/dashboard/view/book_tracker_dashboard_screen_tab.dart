@@ -69,7 +69,9 @@ class _BookTrackerDashboardScreenTabState
       child: Row(
         children: [
           _sideNavigationBar(),
-          Expanded(child: _pages[_currentIndex]),
+          Expanded(
+            child: IndexedStack(index: _currentIndex, children: _pages),
+          ),
         ],
       ),
     );
