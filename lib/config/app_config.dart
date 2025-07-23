@@ -14,6 +14,7 @@ class AppConfiguration {
   final String flavorAssetsFolder;
   final String dashboardPath;
   final Color primaryColor;
+  final String apiBaseUrl;
 
   const AppConfiguration._({
     required this.flavor,
@@ -21,6 +22,7 @@ class AppConfiguration {
     required this.flavorAssetsFolder,
     required this.dashboardPath,
     required this.primaryColor,
+    required this.apiBaseUrl,
   });
 
   factory AppConfiguration.ofBookTracker() => const AppConfiguration._(
@@ -29,6 +31,7 @@ class AppConfiguration {
     flavorAssetsFolder: 'book_tracker',
     dashboardPath: '/bookTrackerDashboard',
     primaryColor: ColorConstants.primaryBookTracker,
+    apiBaseUrl: 'https://openlibrary.org',
   );
 
   factory AppConfiguration.ofExpenseTracker() => const AppConfiguration._(
@@ -37,6 +40,7 @@ class AppConfiguration {
     flavorAssetsFolder: 'expense_tracker',
     dashboardPath: '/expenseTrackerDashboard',
     primaryColor: ColorConstants.primaryExpenseTracker,
+    apiBaseUrl: '',
   );
 
   static AppConfiguration getInstance(AppFlavor flavor) {
