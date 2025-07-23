@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../config/text_styles.dart';
 import '../../../../config/theme.dart';
+import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
+import '../../book_listing/view/book_listing_screen.dart';
+
 class BookTrackerDashboardScreen extends StatefulWidget {
   const BookTrackerDashboardScreen({super.key});
 
@@ -17,22 +20,22 @@ class _BookTrackerDashboardScreenState
 
   final List<Widget> _pages = [
     Center(child: AppText.body1(text: 'Home')),
-    Center(child: AppText.body1(text: 'Discover')),
+    const BookListingScreen(),
     Center(child: AppText.body1(text: 'Settings')),
   ];
 
   final List<BottomNavigationBarItem> _items = [
     BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.house_fill),
-      label: 'Home',
+      label: TextConstants.home,
     ),
     BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.search),
-      label: 'Discover',
+      label: TextConstants.discover,
     ),
     BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.line_horizontal_3),
-      label: 'Menu',
+      label: TextConstants.menu,
     ),
   ];
 

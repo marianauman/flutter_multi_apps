@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/config/text_styles.dart';
 import 'package:flutter_multi_apps/shared/widgets/base_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../config/theme.dart';
+import '../../../../core/constants/text_constants.dart';
+import '../../book_listing/view/book_listing_screen_tab.dart';
 
 class BookTrackerDashboardScreenTab extends StatefulWidget {
   const BookTrackerDashboardScreenTab({super.key});
@@ -20,23 +21,23 @@ class _BookTrackerDashboardScreenTabState
 
   final List<Widget> _pages = [
     Center(child: AppText.body1(text: 'Home')),
-    Center(child: AppText.body1(text: 'Discover')),
+    const BookListingScreenTab(),
     Center(child: AppText.body1(text: 'Settings')),
   ];
 
   final List<NavigationRailDestination> _destinations = [
     NavigationRailDestination(
       icon: const Icon(CupertinoIcons.house_fill),
-      label: AppText.body1(text: 'Home'),
+      label: AppText.body1(text: TextConstants.home),
     ),
     NavigationRailDestination(
       icon: const Icon(Icons.search),
-      label: AppText.body1(text: 'Discover'),
+      label: AppText.body1(text: TextConstants.discover),
       padding: EdgeInsets.symmetric(vertical: 20.r),
     ),
     NavigationRailDestination(
       icon: const Icon(CupertinoIcons.line_horizontal_3),
-      label: AppText.body1(text: 'Menu'),
+      label: AppText.body1(text: TextConstants.menu),
     ),
   ];
 
