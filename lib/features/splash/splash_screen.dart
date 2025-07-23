@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 import '../../core/constants/assets_constants.dart';
 import '../../main/main_common.dart';
+import '../../shared/widgets/lottie_asset.dart';
 import 'splash_handler.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,10 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: appconfig.primaryColor,
       body: Center(
-        child: Lottie.asset(
-          AssetsConstants.splash,
+        child: LottieAsset(
+          path: AssetsConstants.splash,
           width: 300.r,
           height: 300.r,
+          loaderColor: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
     );

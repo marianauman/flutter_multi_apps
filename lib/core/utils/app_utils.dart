@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -38,5 +39,17 @@ hideKeyboard(BuildContext context) {
 
 bool isDarkMode(BuildContext context) {
   return Theme.of(context).brightness == Brightness.dark;
+}
+
+Future<bool> isConnected() async {
+  final connectivityResult = await Connectivity().checkConnectivity();
+  return _hasConnection(connectivityResult);
+}
+
+bool _hasConnection(List<ConnectivityResult> result) {
+  return result.contains(ConnectivityResult.mobile) ||
+      result.contains(ConnectivityResult.wifi) ||
+      result.contains(ConnectivityResult.ethernet) ||
+      result.contains(ConnectivityResult.vpn);
 }
 
