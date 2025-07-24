@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import '../../shared/helpers/app_alerts.dart';
+import '../../shared/widgets/no_internet_dialog.dart';
 import 'connectivity_shared_instance.dart';
 
 class DioSharedInstance {
@@ -92,10 +94,18 @@ class ConnectivityInterceptor extends Interceptor {
   ) async {
     final result = await ConnectivitySharedInstance().isConnected();
     if (!result) {
+      AppAlerts.showCustomDialog(
+        child: NoInternetDialog(
+          onRetry: () {
+            // Retry the request if it's a GET method
+            _retryRequest(options, handler);
+          },
+        ),
+      );
       handler.reject(
         DioException(
           requestOptions: options,
-          type: DioExceptionType.unknown,
+          type: DioExceptionType.connectionError,
           error: 'No Internet Connection',
         ),
       );
@@ -115,12 +125,23 @@ class ErrorInterceptor extends Interceptor {
           type: DioExceptionType.badResponse,
           error: 'Unauthorized',
           response: err.response,
-          message: err.message
+          message: err.message,
         ),
       );
     } else if (err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.receiveTimeout ||
         err.type == DioExceptionType.sendTimeout) {
+      AppAlerts.showCustomDialog(
+        child: NoInternetDialog(
+          onRetry: () {
+            // Retry the request if it's a GET method
+            _retryRequest(
+              err.requestOptions,
+              handler as RequestInterceptorHandler,
+            );
+          },
+        ),
+      );
       handler.reject(
         DioException(
           requestOptions: err.requestOptions,
@@ -131,7 +152,26 @@ class ErrorInterceptor extends Interceptor {
         ),
       );
     } else if (err.type == DioExceptionType.connectionError) {
-      // connection error
+      AppAlerts.showCustomDialog(
+        child: NoInternetDialog(
+          onRetry: () {
+            // Retry the request if it's a GET method
+            _retryRequest(
+              err.requestOptions,
+              handler as RequestInterceptorHandler,
+            );
+          },
+        ),
+      );
+      handler.reject(
+        DioException(
+          requestOptions: err.requestOptions,
+          type: DioExceptionType.connectionError,
+          error: 'Connection Error',
+          response: err.response,
+          message: err.message,
+        ),
+      );
     } else if (err.type == DioExceptionType.badResponse) {
       handler.reject(
         DioException(
@@ -139,7 +179,7 @@ class ErrorInterceptor extends Interceptor {
           type: DioExceptionType.badResponse,
           error: 'Bad Response',
           response: err.response,
-          message: err.message
+          message: err.message,
         ),
       );
     } else if (err.type == DioExceptionType.unknown) {
@@ -155,5 +195,56 @@ class ErrorInterceptor extends Interceptor {
     }
 
     handler.next(err);
+  }
+}
+
+Future<void> _retryRequest(
+  RequestOptions options,
+  RequestInterceptorHandler handler,
+) async {
+  try {
+    final isConnected = await ConnectivitySharedInstance().isConnected();
+    if (!isConnected) {
+      return;
+    }
+
+    // Create a new Dio instance for the retry
+    final dio = Dio();
+    dio.options.connectTimeout = Duration(seconds: 10);
+    dio.options.receiveTimeout = Duration(seconds: 20);
+    dio.options.sendTimeout = Duration(seconds: 15);
+    dio.options.responseType = ResponseType.json;
+    dio.options.contentType = 'application/json';
+    dio.options.baseUrl = options.baseUrl;
+
+    // Make the retry request
+    final response = await dio.request(
+      options.path,
+      data: options.data,
+      queryParameters: options.queryParameters,
+      options: Options(method: options.method, headers: options.headers),
+    );
+
+    // Create a new response handler and pass the successful response
+    final responseHandler = ResponseInterceptorHandler();
+    responseHandler.resolve(response);
+    handler.resolve(response);
+  } catch (error) {
+    // If retry fails, reject the request
+    AppAlerts.showCustomDialog(
+      child: NoInternetDialog(
+        onRetry: () {
+          // Retry the request if it's a GET method
+          _retryRequest(options, handler);
+        },
+      ),
+    );
+    handler.reject(
+      DioException(
+        requestOptions: options,
+        type: DioExceptionType.connectionError,
+        error: 'Retry failed: $error',
+      ),
+    );
   }
 }
