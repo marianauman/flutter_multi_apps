@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/text_styles.dart';
 import 'custom_ink_well.dart';
@@ -112,7 +113,7 @@ class CustomButton extends StatelessWidget {
                         children: [
                           if (icon != null && iconOnLeft) ...[ 
                             Icon(icon, size: iconSize ?? 24.sp, color: iconColor ?? Theme.of(context).colorScheme.onPrimary),
-                            SizedBox(width: 8.sp),
+                            8.customHorizontalSpace,
                           ],
                           Flexible(
                             child: AppText.title3(
@@ -122,7 +123,7 @@ class CustomButton extends StatelessWidget {
                             ),
                           ),
                           if (icon != null && !iconOnLeft) ...[ 
-                            SizedBox(width: 8.sp),
+                            8.customHorizontalSpace,
                             Icon(icon, size: iconSize ?? 24.sp, color: iconColor ?? Theme.of(context).colorScheme.onPrimary),
                           ],
                         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/shared/widgets/custom_app_bar.dart';
+import 'package:flutter_multi_apps/shared/widgets/empty_state.dart';
 
 import '../../core/utils/app_utils.dart';
 import 'loading_overlay.dart';
@@ -10,12 +11,10 @@ class BaseScreen extends StatelessWidget {
   final bool isLoading;
   final Widget? loaderScreen;
   final bool isEmpty;
-  final bool hasInternet;
   final List<Widget>? actions;
   final Widget? leadingIcon;
   final bool showAppBar;
-  // final VoidCallback? onRetry;
-  // final String? emptyStateMessage;
+  final String? emptyStateMessage;
   final Color? backgroundColor;
   final bool automaticallyImplyLeading;
   final bool? centerTitle;
@@ -38,12 +37,10 @@ class BaseScreen extends StatelessWidget {
     this.isLoading = false,
     this.loaderScreen,
     this.isEmpty = false,
-    this.hasInternet = true,
     this.actions,
     this.leadingIcon,
     this.showAppBar = true,
-    // this.onRetry,
-    // this.emptyStateMessage,
+    this.emptyStateMessage,
     this.backgroundColor,
     this.automaticallyImplyLeading = true,
     this.centerTitle,
@@ -97,16 +94,13 @@ class BaseScreen extends StatelessWidget {
   }
 
   Widget _buildMainContent() {
-    if (!hasInternet) {
-      // return NoInternetView(onRetry: onRetry);
-    }
 
     if (isLoading) {
       return loaderScreen ?? Center(child: const CircularProgressIndicator());
     }
 
     if (isEmpty) {
-      // return EmptyStateView(message: emptyStateMessage);
+      return EmptyStateView(message: emptyStateMessage);
     }
 
     return child ?? const SizedBox.shrink();

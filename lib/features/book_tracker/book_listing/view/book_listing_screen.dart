@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_multi_apps/shared/widgets/custom_button.dart';
+import '../../../../shared/helpers/app_alerts.dart';
 import '../../../../shared/widgets/base_screen.dart';
-import '../../../../shared/widgets/custom_button.dart';
-import '../../../../shared/widgets/custom_icon_button.dart';
+import '../../../../shared/widgets/no_internet_dialog.dart';
 
 class BookListingScreen extends StatefulWidget {
   const BookListingScreen({super.key});
@@ -17,11 +17,11 @@ class _BookListingScreenState extends State<BookListingScreen> {
     return BaseScreen(
       child: Column(
         children: [
-          CustomIconButton(
-            onPressed: () {},
-            icon: Icons.add,
-            borderRadius: 10.r,
-            isLoading: true,
+          CustomButton(
+            btnTitle: "check",
+            onTap: () {
+              AppAlerts.showSuccessDialog(title: "Success", message: "Success");
+            },
           ),
         ],
       ),

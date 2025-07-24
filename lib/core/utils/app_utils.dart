@@ -8,15 +8,19 @@ bool isTablet(BuildContext context) {
   return screenWidth >= tabletThreshold;
 }
 
-Future<void> setDeviceOrientations(BuildContext context)async{
-  if(isTablet(context)){
+bool isPortrait(BuildContext context) {
+  return MediaQuery.of(context).orientation == Orientation.portrait;
+}
+
+Future<void> setDeviceOrientations(BuildContext context) async {
+  if (isTablet(context)) {
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-  }else{
+  } else {
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -26,9 +30,11 @@ Future<void> setDeviceOrientations(BuildContext context)async{
 
 Size getScreenSize(BuildContext context) {
   final isTabletDevice = isTablet(context);
-  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  final isPortraitDevice = isPortrait(context);
   final designSize = isTabletDevice
-      ? isPortrait ? MediaQuery.of(context).size : const Size(1135, 744)
+      ? isPortraitDevice
+            ? MediaQuery.of(context).size
+            : const Size(1135, 744)
       : const Size(375, 812);
   return designSize;
 }
@@ -52,4 +58,3 @@ bool _hasConnection(List<ConnectivityResult> result) {
       result.contains(ConnectivityResult.ethernet) ||
       result.contains(ConnectivityResult.vpn);
 }
-
