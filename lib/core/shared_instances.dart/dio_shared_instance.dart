@@ -97,7 +97,6 @@ class ConnectivityInterceptor extends Interceptor {
       AppAlerts.showCustomDialog(
         child: NoInternetDialog(
           onRetry: () {
-            // Retry the request if it's a GET method
             _retryRequest(options, handler);
           },
         ),
@@ -134,11 +133,7 @@ class ErrorInterceptor extends Interceptor {
       AppAlerts.showCustomDialog(
         child: NoInternetDialog(
           onRetry: () {
-            // Retry the request if it's a GET method
-            _retryRequest(
-              err.requestOptions,
-              handler as RequestInterceptorHandler,
-            );
+            _retryRequest(err.requestOptions);
           },
         ),
       );
@@ -155,11 +150,7 @@ class ErrorInterceptor extends Interceptor {
       AppAlerts.showCustomDialog(
         child: NoInternetDialog(
           onRetry: () {
-            // Retry the request if it's a GET method
-            _retryRequest(
-              err.requestOptions,
-              handler as RequestInterceptorHandler,
-            );
+            _retryRequest(err.requestOptions);
           },
         ),
       );
@@ -199,9 +190,9 @@ class ErrorInterceptor extends Interceptor {
 }
 
 Future<void> _retryRequest(
-  RequestOptions options,
-  RequestInterceptorHandler handler,
-) async {
+  RequestOptions options, [
+  RequestInterceptorHandler? handler,
+]) async {
   try {
     final isConnected = await ConnectivitySharedInstance().isConnected();
     if (!isConnected) {
@@ -225,26 +216,29 @@ Future<void> _retryRequest(
       options: Options(method: options.method, headers: options.headers),
     );
 
-    // Create a new response handler and pass the successful response
-    final responseHandler = ResponseInterceptorHandler();
-    responseHandler.resolve(response);
-    handler.resolve(response);
+    // If we have a handler, resolve the original request
+    if (handler != null) {
+      handler.resolve(response);
+    }
   } catch (error) {
-    // If retry fails, reject the request
+    // If retry fails, show dialog again
     AppAlerts.showCustomDialog(
       child: NoInternetDialog(
         onRetry: () {
-          // Retry the request if it's a GET method
           _retryRequest(options, handler);
         },
       ),
     );
-    handler.reject(
-      DioException(
-        requestOptions: options,
-        type: DioExceptionType.connectionError,
-        error: 'Retry failed: $error',
-      ),
-    );
+    
+    // If we have a handler, reject the original request
+    if (handler != null) {
+      handler.reject(
+        DioException(
+          requestOptions: options,
+          type: DioExceptionType.connectionError,
+          error: 'Retry failed: $error',
+        ),
+      );
+    }
   }
 }
