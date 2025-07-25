@@ -79,9 +79,9 @@ abstract class AppDialogBuilder {
           filter: ImageFilter.blur(sigmaX: blurValue, sigmaY: blurValue),
           child: Padding(
             padding: isTablet(context) 
-                ? isPortrait(context) 
-                ? EdgeInsets.symmetric(horizontal: 230.r).copyWith(bottom: MediaQuery.of(context).viewInsets.bottom) 
-                : EdgeInsets.symmetric(horizontal: 350.r).copyWith(bottom: MediaQuery.of(context).viewInsets.bottom)
+                ? EdgeInsets.symmetric(
+                    horizontal: 350.r,
+                  ).copyWith(bottom: MediaQuery.of(context).viewInsets.bottom)
                  : EdgeInsets.symmetric(horizontal: 16.r, vertical: 20.r)
                     .copyWith(bottom: MediaQuery.of(context).viewInsets.bottom + 40.r),
             child: Align(

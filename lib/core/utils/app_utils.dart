@@ -15,8 +15,6 @@ bool isPortrait(BuildContext context) {
 Future<void> setDeviceOrientations(BuildContext context) async {
   if (isTablet(context)) {
     await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
