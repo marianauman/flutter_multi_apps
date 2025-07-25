@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import '../../shared/helpers/app_alerts.dart';
 import '../../shared/widgets/no_internet_dialog.dart';
 import 'connectivity_shared_instance.dart';
 
