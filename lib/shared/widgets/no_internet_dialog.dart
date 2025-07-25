@@ -7,8 +7,12 @@ import '../../config/text_styles.dart';
 import '../../core/constants/assets_constants.dart';
 import '../../core/constants/text_constants.dart';
 import '../../core/utils/app_utils.dart';
+import '../helpers/app_alerts.dart';
 import 'custom_button.dart';
 
+showNoInternetDialog(Function() onRetry) {
+  AppAlerts.showCustomDialog(child: NoInternetDialog(onRetry: onRetry));
+}
 class NoInternetDialog extends StatelessWidget {
   final void Function()? onRetry;
   const NoInternetDialog({super.key, this.onRetry});

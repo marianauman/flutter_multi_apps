@@ -94,13 +94,9 @@ class ConnectivityInterceptor extends Interceptor {
   ) async {
     final result = await ConnectivitySharedInstance().isConnected();
     if (!result) {
-      AppAlerts.showCustomDialog(
-        child: NoInternetDialog(
-          onRetry: () {
-            _retryRequest(options, handler);
-          },
-        ),
-      );
+      showNoInternetDialog(() {
+        _retryRequest(options, handler);
+      });
       handler.reject(
         DioException(
           requestOptions: options,
@@ -130,13 +126,9 @@ class ErrorInterceptor extends Interceptor {
     } else if (err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.receiveTimeout ||
         err.type == DioExceptionType.sendTimeout) {
-      AppAlerts.showCustomDialog(
-        child: NoInternetDialog(
-          onRetry: () {
-            _retryRequest(err.requestOptions);
-          },
-        ),
-      );
+      showNoInternetDialog(() {
+        _retryRequest(err.requestOptions);
+      });
       handler.reject(
         DioException(
           requestOptions: err.requestOptions,
@@ -147,13 +139,9 @@ class ErrorInterceptor extends Interceptor {
         ),
       );
     } else if (err.type == DioExceptionType.connectionError) {
-      AppAlerts.showCustomDialog(
-        child: NoInternetDialog(
-          onRetry: () {
-            _retryRequest(err.requestOptions);
-          },
-        ),
-      );
+      showNoInternetDialog(() {
+        _retryRequest(err.requestOptions);
+      });
       handler.reject(
         DioException(
           requestOptions: err.requestOptions,
@@ -222,14 +210,10 @@ Future<void> _retryRequest(
     }
   } catch (error) {
     // If retry fails, show dialog again
-    AppAlerts.showCustomDialog(
-      child: NoInternetDialog(
-        onRetry: () {
-          _retryRequest(options, handler);
-        },
-      ),
-    );
-    
+    showNoInternetDialog(() {
+      _retryRequest(options, handler);
+    });
+
     // If we have a handler, reject the original request
     if (handler != null) {
       handler.reject(

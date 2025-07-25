@@ -14,6 +14,14 @@ class ConnectivitySharedInstance {
     final connectivityResult = await _connectivity.checkConnectivity();
     return _hasConnection(connectivityResult);
   }
+  
+  void isConnectionError(BuildContext context) {
+    if (!isConnected()) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(title: Text('No connection'), content: Text('Please check your internet connection and try again.'),),
+      );
+  }
 
   bool _hasConnection(List<ConnectivityResult> result) {
     return result.contains(ConnectivityResult.mobile) ||
