@@ -6,7 +6,6 @@ import '../../config/routes.dart';
 import '../../config/text_styles.dart';
 import '../../core/constants/assets_constants.dart';
 import '../../core/constants/text_constants.dart';
-import '../../core/utils/app_utils.dart';
 import '../helpers/app_alerts.dart';
 import 'custom_button.dart';
 
@@ -20,7 +19,7 @@ class NoInternetDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(isTablet(context) ? 40.r : 25.r),
+      padding: EdgeInsets.all(25.r),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(12.r),

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/constants/assets_constants.dart';
-import '../../core/utils/app_utils.dart';
 import 'lottie_asset.dart';
 
 class EmptyStateView extends StatelessWidget {
