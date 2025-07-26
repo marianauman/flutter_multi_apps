@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
-import '../widgets/book_listing_list_cell.dart';
+import 'book_listing_list_cell.dart';
 
 class BookListingScreen extends ConsumerStatefulWidget {
   const BookListingScreen({super.key});

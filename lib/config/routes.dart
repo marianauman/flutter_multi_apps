@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../config/app_config.dart';
-import '../core/utils/app_utils.dart';
 import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen.dart';
-import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen_tab.dart';
 import '../features/expense_tracker/expense_tracker_home_screen.dart';
 import '../features/splash/splash_screen.dart';
 import '../main/main_common.dart';
@@ -28,9 +26,7 @@ final GoRouter router = GoRouter(
           case AppFlavor.expenseTracker:
             return const ExpenseTrackerHomeScreen();
           case AppFlavor.bookTracker:
-            return isTablet(context)
-                ? const BookTrackerDashboardScreenTab()
-                : const BookTrackerDashboardScreen();
+            return const BookTrackerDashboardScreen();
         }
       },
     ),
