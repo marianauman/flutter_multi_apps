@@ -4,14 +4,14 @@ import 'package:dio/dio.dart';
 import '../../main/main_common.dart';
 import '../shared_instances.dart/dio_shared_instance.dart';
 
-class ApiServices {
+class ApiManager {
   String baseurl = appconfig.apiBaseUrl;
   final String endpoint;
   Map<String, dynamic> body;
   Map<String, String> header;
   Map<String, String> params;
 
-  ApiServices({
+  ApiManager({
     required this.endpoint,
     this.body = const {},
     this.header = const {},

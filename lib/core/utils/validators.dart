@@ -44,4 +44,14 @@ bool hasValidUrl(String value) {
   return true;
 }
 
+bool isValidUrl(String text) {
+  final urlPattern = RegExp(
+    r'^(https?:\/\/)?(([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|'
+    r'((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-zA-Z0-9%_.~#+ ]*)*'
+    r'(\?[;&a-zA-Z0-9%_.~+=-]*)?(\#[-a-zA-Z0-9%_.~+=-]*)?$',
+    caseSensitive: false,
+  );
+  return urlPattern.hasMatch(text);
+}
+
 

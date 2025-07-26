@@ -31,7 +31,7 @@ class AppConfiguration {
     flavorAssetsFolder: 'book_tracker',
     dashboardPath: '/bookTrackerDashboard',
     primaryColor: ColorConstants.primaryBookTracker,
-    apiBaseUrl: 'https://openlibrary.org',
+    apiBaseUrl: 'https://openlibrary.org/',
   );
 
   factory AppConfiguration.ofExpenseTracker() => const AppConfiguration._(

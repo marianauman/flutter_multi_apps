@@ -2,6 +2,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum BookStatus { none, wantToRead, reading, finished }
 
+enum BookAccessType { none, public, borrowable }
+
 enum DialogPosition { top, center, bottom }
 
 enum DialogAnimationType { slide, fade, scale, rotate }

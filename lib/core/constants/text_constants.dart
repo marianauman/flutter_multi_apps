@@ -9,4 +9,5 @@ class TextConstants {
   static const String noInternetConnectionDescription =
       "You're offline right now. Please check your connection and try again.";
   static const String noDataAvailable = 'No Data Available';
+  static const String discoverBooks = 'Discover Books';
 }

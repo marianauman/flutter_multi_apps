@@ -1,3 +1,3 @@
 class ApiConstants {
-  // static const openLibraryApiUrl = 'https://openlibrary.org/api/books';
+  static const bookListing = '/search.json';
 }

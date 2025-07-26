@@ -1,77 +1,69 @@
-// class DiscoverViewModel extends StateNotifier<AsyncValue<List<Book>>> {
-//   DiscoverViewModel(this._bookService) : super(const AsyncLoading()) {
-//     loadBooks();
-//   }
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../model/book_model.dart';
+import 'book_listing_service.dart';
+import 'book_listing_state.dart';
 
-//   final BookService _bookService;
+class BookListingProvider extends StateNotifier<BookListingState> {
+  BookListingProvider(this._bookService)
+    : super(
+        BookListingState(
+          booksListing: BookListingModel.empty(),
+          query: '',
+          isLoading: false,
+          isMoreLoading: false,
+        ),
+      );
 
-//   Future<void> loadBooks() async {
-//     try {
-//       final books = await _bookService.fetchBooks();
-//       state = AsyncData(books);
-//     } catch (e, st) {
-//       state = AsyncError(e, st);
-//     }
-//   }
-// }
+  final BookListingService _bookService;
 
-// //////////////
-// ///
-// ///
-// ///
-// ///
-// final discoverViewModelProvider = StateNotifierProvider<DiscoverViewModel, AsyncValue<List<Book>>>(
-//   (ref) => DiscoverViewModel(ref.watch(bookServiceProvider)),
-// );
+  Future<void> fetchBookListing({int page = 1}) async {
+    if (page == 1) {
+      state = state.copyWith(isLoading: true);
+    } else {
+      state = state.copyWith(isMoreLoading: true);
+    }
+    try {
+      final model = await _bookService.fetchBookListing(page: page);
+      if (model == null) return;
+      state = state.copyWith(
+        booksListing: BookListingModel(
+          books: page == 1
+              ? model.books
+              : [...state.booksListing.books, ...model.books],
+          pagination: model.pagination,
+        ),
+        isLoading: false,
+        isMoreLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        booksListing: BookListingModel.empty(),
+        isLoading: false,
+        isMoreLoading: false,
+      );
+    }
+  }
 
-// /////////////////
-// ///
-// ///
-// ///
-// ///
-// ///
-// import 'package:dio/dio.dart';
-// import '../model/book.dart'; // path depends on your structure
+  void handleScroll(ScrollPosition position) {
+    final maxScroll = position.maxScrollExtent;
+    final currentScroll = position.pixels;
+    final scrollThreshold = maxScroll * 0.7;
+    if (currentScroll >= scrollThreshold &&
+        !state.isLoading &&
+        !state.isMoreLoading &&
+        state.booksListing.pagination.currentPage <
+            state.booksListing.pagination.lastPage) {
+      int nextPage = state.booksListing.pagination.currentPage + 1;
+      fetchBookListing(page: nextPage);
+    }
+  }
+  
+}
 
-// class BookService {
-//   final Dio _dio;
-
-//   BookService(this._dio);
-
-//   Future<List<Book>> fetchBooks({String query = "fiction"}) async {
-//     final response = await _dio.get(
-//       'https://openlibrary.org/search.json',
-//       queryParameters: {
-//         'q': query,
-//       },
-//     );
-
-//     final docs = response.data['docs'] as List;
-//     return docs.map((json) => Book.fromJson(json)).toList();
-//   }
-// }
-
-// ////////////////
-// ///
-// ///
-// ///
-// ///
-// ///
-// final dioProvider = Provider<Dio>((ref) => Dio());
-
-// final bookServiceProvider = Provider<BookService>((ref) {
-//   return BookService(ref.watch(dioProvider));
-// });
-
-
-// /////////////////////
-// ///
-// ///
-// ///
-// ///
-// ///
-// final discoverViewModelProvider =
-//     StateNotifierProvider<DiscoverViewModel, AsyncValue<List<Book>>>(
-//   (ref) => DiscoverViewModel(ref.watch(bookServiceProvider)),
-// );
-
+final bookListingProvider =
+    StateNotifierProvider.autoDispose<BookListingProvider, BookListingState>((
+      ref,
+    ) {
+      return BookListingProvider(BookListingService());
+    });
