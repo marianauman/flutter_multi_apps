@@ -8,7 +8,8 @@ import '../../../../../core/constants/text_constants.dart';
 import '../../model/my_books_tabs_model.dart';
 
 class MyBooksTabs extends StatefulWidget {
-  const MyBooksTabs({super.key});
+  final Function(BookStatus) onTabSelected;
+  const MyBooksTabs({super.key, required this.onTabSelected});
 
   @override
   State<MyBooksTabs> createState() => _MyBooksTabsState();
@@ -52,21 +53,17 @@ class _MyBooksTabsState extends State<MyBooksTabs> {
     return Container(
       color: Theme.of(context).colorScheme.surface,
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      child: GridView.builder(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 0,
-          childAspectRatio: 3.5,
-        ),
-        itemCount: _tabs.length,
-        itemBuilder: (context, index) {
-          final tab = _tabs[index];
-          return _buildTabCard(tab);
-        },
+      child: Column(
+        children: [
+          for (int i = 0; i < _tabs.length; i += 2)
+            Row(
+              children: [
+                Expanded(child: _buildTabCard(_tabs[i])),
+                if (i + 1 < _tabs.length)
+                  Expanded(child: _buildTabCard(_tabs[i + 1])),
+              ],
+            ),
+        ],
       ),
     );
   }
@@ -76,20 +73,13 @@ class _MyBooksTabsState extends State<MyBooksTabs> {
       decoration: BoxDecoration(
         color: tab.isSelected ? tab.color.customOpacity(0.1) : Colors.transparent,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.customOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            // Handle tab tap
+            widget.onTabSelected(tab.status);
           },
           child: Padding(
             padding: EdgeInsets.all(10),

@@ -43,7 +43,15 @@ class _MyBooksScreenState extends State<MyBooksScreen> {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [const MyBooksTopImage()];
         },
-        body: Column(children: [const MyBooksTabs()]),
+        body: Column(
+          children: [
+            MyBooksTabs(
+              onTabSelected: (status) {
+                print(status);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
