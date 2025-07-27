@@ -42,7 +42,7 @@ class BookListingService {
         if (hiveStatus != null) {
           return book.copyWith(updatedStatus: hiveStatus);
         }
-        return book;
+        return book.copyWith(updatedStatus: BookStatus.none);
       }).toList();
     } catch (e) {
       return books;

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
 import 'package:flutter_multi_apps/shared/helpers/app_alerts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/text_styles.dart';
 import '../../../../../core/constants/text_constants.dart';
 import '../../../../../shared/widgets/custom_ink_well.dart';
+import '../../provider/clear_database_provider.dart';
 
-class ClearStorageView extends StatelessWidget {
+class ClearStorageView extends ConsumerWidget {
   const ClearStorageView({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return CustomInkWell(
       onTap: () {
-        _showClearStorageConfirmationDialog(context);
+        _showClearStorageConfirmationDialog(context, ref);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 10.r),
@@ -50,14 +52,19 @@ class ClearStorageView extends StatelessWidget {
     );
   }
 
-  void _showClearStorageConfirmationDialog(BuildContext context) {
+  void _showClearStorageConfirmationDialog(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     AppAlerts.showConfirmationDialog(
       title: TextConstants.clearStorage,
       message: TextConstants.clearStorageConfirmation,
       confirmBtnTitle: TextConstants.clear,
       cancelBtnTitle: TextConstants.cancel,
       onTapCancel: (value) {},
-      onTapConfirm: (value) {},
+      onTapConfirm: (value) {
+        ref.read(clearDatabaseProvider.notifier).clearDatabase(ref);
+      },
     );
   }
 }
