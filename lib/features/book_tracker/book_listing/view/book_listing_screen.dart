@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
 import 'widgets/book_listing_list_cell.dart';
+import 'widgets/book_listing_skeleton.dart';
 
 class BookListingScreen extends ConsumerStatefulWidget {
   const BookListingScreen({super.key});
@@ -48,7 +49,8 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
     var state = ref.watch(bookListingProvider);
     return BaseScreen(
       title: TextConstants.discoverBooks,
-      isLoading: state.isLoading,
+      isLoading: !state.isLoading,
+      loaderScreen: BookListingSkeleton(),
       isEmpty: state.booksListing.books.isEmpty,
       child: RefreshIndicator(
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
