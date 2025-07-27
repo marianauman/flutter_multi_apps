@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
-import '../../../../shared/widgets/custom_icon_button.dart';
 import 'widgets/book_listing_list_cell.dart';
 import 'widgets/book_listing_skeleton.dart';
 
@@ -102,12 +101,14 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
   }
 
   Widget _buildRefreshButton({required BuildContext context}) {
-    return CustomIconButton(
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         _getBookListing();
       },
-      icon: Icons.refresh,
-      borderRadius: 10.r,
+      child: Icon(
+        Icons.refresh,
+        color: Theme.of(context).colorScheme.onPrimary,
+      ),
     );
   }
 }

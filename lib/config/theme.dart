@@ -19,7 +19,7 @@ class AppTheme {
       splashFactory: NoSplash.splashFactory,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorLight,
       appBarTheme: AppBarTheme(
-        backgroundColor: ColorConstants.scaffoldBackgroundColorLight,
+        backgroundColor: AppColors().primary,
       ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors().primary,
@@ -42,7 +42,7 @@ class AppTheme {
       splashFactory: NoSplash.splashFactory,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorDark,
       appBarTheme: AppBarTheme(
-        backgroundColor: ColorConstants.scaffoldBackgroundColorDark,
+        backgroundColor: AppColors().primary,
       ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors().primary,

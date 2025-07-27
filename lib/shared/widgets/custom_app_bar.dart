@@ -41,7 +41,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Material(
       elevation: 1,
       child: AppBar(
-        title: AppText.title1(text: title),
+        title: AppText.title1(
+          text: title,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
         actions: actions?.map((action) => Padding(
           padding: EdgeInsets.only(right: 12.r),
           child: action,
@@ -58,6 +61,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         automaticallyImplyLeading: automaticallyImplyLeading,
         bottom: bottom,
         toolbarHeight: height,
+        actionsIconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 class TextConstants {
-  static const String home = 'Home';
+  static const String myBooks = 'My Books';
   static const String discover = 'Discover';
   static const String menu = 'Menu';
   static const String ok = 'Ok';
@@ -14,4 +14,6 @@ class TextConstants {
   static const String wantToRead = 'Want to Read';
   static const String reading = 'Reading';
   static const String finished = 'Finished';
+  static const String favorite = 'Favorite';
+  static const String all = 'All';
 }

@@ -5,6 +5,7 @@ import '../../../../config/theme.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
 import '../../book_listing/view/book_listing_screen.dart';
+import '../../my_books/view/my_books_screen.dart';
 
 class BookTrackerDashboardScreen extends StatefulWidget {
   const BookTrackerDashboardScreen({super.key});
@@ -19,15 +20,15 @@ class _BookTrackerDashboardScreenState
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    Center(child: AppText.body1(text: 'Home')),
+    const MyBooksScreen(),
     const BookListingScreen(),
     Center(child: AppText.body1(text: 'Settings')),
   ];
 
   final List<BottomNavigationBarItem> _items = [
     BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.house_fill),
-      label: TextConstants.home,
+      icon: Icon(CupertinoIcons.book),
+      label: TextConstants.myBooks,
     ),
     BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.search),
