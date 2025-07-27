@@ -111,7 +111,6 @@ class BookListingListCell extends StatelessWidget {
     return Expanded(
       child: CustomButton(
         btnTitle: getBookActionText(book.bookAction),
-        icon: Icons.book,
         onTap: () {},
         borderRadius: 10.r,
       ),
