@@ -5,6 +5,7 @@ import '../../../../config/text_styles.dart';
 import '../../../../config/theme.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
+import '../../book_listing/provider/book_listing_provider.dart';
 import '../../book_listing/view/book_listing_screen.dart';
 import '../../my_books/provider/book_listing_provider.dart';
 import '../../my_books/view/my_books_screen.dart';
@@ -57,6 +58,8 @@ class _BookTrackerDashboardScreenState
             });
             if (index == 0) {
               ref.read(myBooksProvider.notifier).fetchMyBooks();
+            } else if (index == 1) {
+              ref.read(bookListingProvider.notifier).refreshBookStatuses();
             }
           },
         ),

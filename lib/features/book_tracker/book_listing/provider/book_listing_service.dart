@@ -16,10 +16,37 @@ class BookListingService {
     if(response['docs'] is List) {
       List docs = response['docs'];
       List<BookModel> books = docs.map((json) => BookModel.fromJson(json)).toList();
+      
+      // Check Hive storage and update book statuses
+      List<BookModel> updatedBooks = await _updateBooksWithHiveStatus(books);
+      
       PaginationModel pagination = PaginationModel.fromJson(total: response['num_found'], currentPage: page, perPage: 100);
-      return BookListingModel(books: books, pagination: pagination);
+      return BookListingModel(books: updatedBooks, pagination: pagination);
     }
     return null;
+  }
+
+  Future<List<BookModel>> _updateBooksWithHiveStatus(
+    List<BookModel> books,
+  ) async {
+    try {
+      final myBooks = await _storageService.getAllMyBooks();
+
+      final Map<String, BookStatus> bookStatusMap = {};
+      for (final book in myBooks) {
+        bookStatusMap[book.id] = book.status;
+      }
+
+      return books.map((book) {
+        final hiveStatus = bookStatusMap[book.id];
+        if (hiveStatus != null) {
+          return book.copyWith(updatedStatus: hiveStatus);
+        }
+        return book;
+      }).toList();
+    } catch (e) {
+      return books;
+    }
   }
 
   Future<void> saveBookToMyBooks(BookModel book) async {
@@ -36,5 +63,10 @@ class BookListingService {
     } catch (e) {
       throw Exception('Failed to update book status: $e');
     }
+  }
+
+  // Refresh book statuses from Hive storage for existing books
+  Future<List<BookModel>> refreshBookStatuses(List<BookModel> books) async {
+    return await _updateBooksWithHiveStatus(books);
   }
 }

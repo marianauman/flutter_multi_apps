@@ -16,12 +16,15 @@ class BookListingScreen extends ConsumerStatefulWidget {
   ConsumerState<BookListingScreen> createState() => _BookListingScreenState();
 }
 
-class _BookListingScreenState extends ConsumerState<BookListingScreen> {
+class _BookListingScreenState extends ConsumerState<BookListingScreen>
+    with WidgetsBindingObserver {
   final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     _getBookListing();
     _scrollController.addListener(_onScroll);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
@@ -29,13 +32,30 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-  void _getBookListing() {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _refreshBookStatuses();
+    }
+  }
+
+  void _getBookListing({bool isRefresh = false}) {
+    if (isRefresh) {
       ref.read(bookListingProvider.notifier).fetchBookListing(page: 1);
-    });
+    } else {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        ref.read(bookListingProvider.notifier).fetchBookListing(page: 1);
+      });
+    }
+  }
+
+  void _refreshBookStatuses() {
+    ref.read(bookListingProvider.notifier).refreshBookStatuses();
   }
 
   void _onScroll() {
@@ -56,9 +76,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
       child: RefreshIndicator(
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
         onRefresh: () async {
-          await ref
-              .read(bookListingProvider.notifier)
-              .fetchBookListing(page: 1);
+          _getBookListing(isRefresh: true);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.r),
@@ -103,7 +121,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
   Widget _buildRefreshButton({required BuildContext context}) {
     return GestureDetector(
       onTap: () {
-        _getBookListing();
+        _getBookListing(isRefresh: true);
       },
       child: Icon(
         Icons.refresh,

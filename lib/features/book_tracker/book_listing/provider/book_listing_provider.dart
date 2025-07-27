@@ -78,6 +78,22 @@ class BookListingProvider extends StateNotifier<BookListingState> {
       ),
     );
   }
+
+  Future<void> refreshBookStatuses() async {
+    try {
+      final updatedBooks = await _bookService.refreshBookStatuses(
+        state.booksListing.books,
+      );
+      state = state.copyWith(
+        booksListing: BookListingModel(
+          books: updatedBooks,
+          pagination: state.booksListing.pagination,
+        ),
+      );
+    } catch (e) {
+      // Handle error if needed
+    }
+  }
 }
 
 final bookListingProvider =
