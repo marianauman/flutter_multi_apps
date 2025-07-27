@@ -13,8 +13,11 @@ class SkeletonLoaderShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: baseColor ?? Theme.of(context).colorScheme.surface.customOpacity(0.5),
-      highlightColor: highlightColor ?? Theme.of(context).colorScheme.surface.customOpacity(0.3),
+      baseColor:
+          baseColor ?? Theme.of(context).colorScheme.surface.customOpacity(0.8),
+      highlightColor:
+          highlightColor ??
+          Theme.of(context).colorScheme.surface.customOpacity(0.3),
       child: child,
     );
   }
