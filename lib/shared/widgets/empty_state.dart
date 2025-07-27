@@ -26,8 +26,8 @@ class EmptyStateView extends StatelessWidget {
           LottieAsset(
             path: AssetsConstants.emptyState,
             fit: BoxFit.contain,
-            width: width ?? 250.r,
-            height: height ?? 250.r,
+            width: width ?? 300.r,
+            height: height ?? 300.r,
           ),
         ],
       ),

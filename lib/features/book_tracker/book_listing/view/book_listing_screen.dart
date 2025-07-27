@@ -49,6 +49,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
     return BaseScreen(
       title: TextConstants.discoverBooks,
       isLoading: state.isLoading,
+      isEmpty: state.booksListing.books.isEmpty,
       child: RefreshIndicator(
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
         onRefresh: () async {
@@ -57,7 +58,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
               .fetchBookListing(page: 1);
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.r),
+          padding: EdgeInsets.symmetric(horizontal: 15.r),
           child: Column(
             children: [
               Expanded(

@@ -99,7 +99,7 @@ class CustomButton extends StatelessWidget {
             absorbing: !isInteractable,
             child: Padding(
               padding: padding ??
-                  EdgeInsets.symmetric(horizontal: 10.r, vertical: 12.r),
+                  EdgeInsets.symmetric(horizontal: 10.r, vertical: 10.r),
               child: SizedBox(
                 width: 1.sw,
                 child: Stack(

@@ -11,6 +11,9 @@ class BookModel {
   final bool isAvailable;
   final bool isFullTextAvailable;
   final BookAccessType accessType;
+  final BookAction bookAction;
+  final BookStatus status;
+  final bool isFavourite;
 
   BookModel({
     this.id = '',
@@ -21,6 +24,9 @@ class BookModel {
     this.isAvailable = false,
     this.isFullTextAvailable = false,
     this.accessType = BookAccessType.none,
+    this.bookAction = BookAction.wantToRead,
+    this.status = BookStatus.none,
+    this.isFavourite = false,
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
