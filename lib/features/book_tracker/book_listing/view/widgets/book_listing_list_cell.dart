@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
 import 'package:flutter_multi_apps/shared/widgets/custom_icon_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/text_styles.dart';
 import '../../../../../core/constants/app_constants.dart';
@@ -8,6 +9,7 @@ import '../../../../../core/constants/text_constants.dart';
 import '../../../../../shared/widgets/custom_button.dart';
 import '../../../../../shared/widgets/image_network.dart';
 import '../../model/book_model.dart';
+import '../../provider/book_listing_provider.dart';
 
 class BookListingListCell extends StatelessWidget {
   final BookModel book;
@@ -109,10 +111,16 @@ class BookListingListCell extends StatelessWidget {
 
   Widget _buildActionButton({required BuildContext context}) {
     return Expanded(
-      child: CustomButton(
-        btnTitle: getBookActionTextUsingStatus(book.status),
-        onTap: () {},
-        borderRadius: 10.r,
+      child: Consumer(
+        builder: (context, ref, child) {
+          return CustomButton(
+            btnTitle: getBookActionTextUsingStatus(book.status),
+            onTap: () {
+              ref.read(bookListingProvider.notifier).handleBookAction(book);
+            },
+            borderRadius: 10.r,
+          );
+        }
       ),
     );
   }

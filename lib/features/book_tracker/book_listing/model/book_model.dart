@@ -29,16 +29,34 @@ class BookModel {
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
-    return BookModel(
-      id: JsonParser.parseString(json['key']).split('/').last,
-      title: JsonParser.parseString(json['title']),
-      authors: JsonParser.parseList<String>(json['author_name']),
-      workKey: JsonParser.parseString(json['key']),
-      coverId: JsonParser.parseString(json['cover_i']),
-      isAvailable: JsonParser.parseBool(json['public_scan_b']),
-      isFullTextAvailable: JsonParser.parseBool(json['has_fulltext']),
-      accessType: setAccessType(JsonParser.parseString(json['ebook_access'])),
-    );
+    // Check if this is API data (has 'key' field) or stored data (has 'id' field)
+    if (json.containsKey('key')) {
+      // API data format
+      return BookModel(
+        id: JsonParser.parseString(json['key']).split('/').last,
+        title: JsonParser.parseString(json['title']),
+        authors: JsonParser.parseList<String>(json['author_name']),
+        workKey: JsonParser.parseString(json['key']),
+        coverId: JsonParser.parseString(json['cover_i']),
+        isAvailable: JsonParser.parseBool(json['public_scan_b']),
+        isFullTextAvailable: JsonParser.parseBool(json['has_fulltext']),
+        accessType: setAccessType(JsonParser.parseString(json['ebook_access'])),
+      );
+    } else {
+      // Stored data format
+      return BookModel(
+        id: JsonParser.parseString(json['id']),
+        title: JsonParser.parseString(json['title']),
+        authors: List<String>.from(json['authors'] ?? []),
+        workKey: JsonParser.parseString(json['workKey']),
+        coverId: JsonParser.parseString(json['coverId']),
+        isAvailable: JsonParser.parseBool(json['isAvailable']),
+        isFullTextAvailable: JsonParser.parseBool(json['isFullTextAvailable']),
+        accessType: BookAccessType.values[json['accessType'] ?? 0],
+        status: BookStatus.values[json['status'] ?? 0],
+        isFavourite: JsonParser.parseBool(json['isFavourite']),
+      );
+    }
   }
 
   String get coverImageUrl => coverId.isNotEmpty
@@ -46,6 +64,36 @@ class BookModel {
       : 'https://via.placeholder.com/150';
 
   String get workUrl => 'https://openlibrary.org$workKey';
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'authors': authors,
+      'workKey': workKey,
+      'coverId': coverId,
+      'isAvailable': isAvailable,
+      'isFullTextAvailable': isFullTextAvailable,
+      'accessType': accessType.index,
+      'status': status.index,
+      'isFavourite': isFavourite,
+    };
+  }
+
+  BookModel copyWith({required BookStatus updatedStatus}) {
+    return BookModel(
+      id: id,
+      title: title,
+      authors: authors,
+      workKey: workKey,
+      coverId: coverId,
+      isAvailable: isAvailable,
+      isFullTextAvailable: isFullTextAvailable,
+      accessType: accessType,
+      status: updatedStatus,
+      isFavourite: isFavourite,
+    );
+  }
 }
 
 BookAccessType setAccessType(String access) {
@@ -70,8 +118,8 @@ String getBookStatusText(BookStatus status) {
   }
 }
 
-String getBookActionTextUsingStatus(BookStatus action) {
-  switch (action) {
+String getBookActionTextUsingStatus(BookStatus status) {
+  switch (status) {
     case BookStatus.wantToRead:
       return TextConstants.start;
     case BookStatus.reading:
@@ -80,6 +128,19 @@ String getBookActionTextUsingStatus(BookStatus action) {
       return TextConstants.start;
     default:
       return TextConstants.wantToRead;
+  }
+}
+
+BookStatus getBookNextStatus(BookStatus status) {
+  switch (status) {
+    case BookStatus.none:
+      return BookStatus.wantToRead;
+    case BookStatus.wantToRead:
+      return BookStatus.reading;
+    case BookStatus.reading:
+      return BookStatus.finished;
+    case BookStatus.finished:
+      return BookStatus.reading;
   }
 }
 
