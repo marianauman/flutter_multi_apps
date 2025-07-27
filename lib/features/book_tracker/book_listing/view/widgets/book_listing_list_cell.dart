@@ -96,8 +96,12 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildActionButtons({required BuildContext context}) {
     return Row(
       children: [
-        _buildReadNowButton(context: context),
-        10.customHorizontalSpace,
+        if ((book.isFullTextAvailable &&
+                book.accessType == BookAccessType.public) ||
+            book.isScanedAvailable) ...[
+          _buildReadNowButton(context: context),
+          10.customHorizontalSpace,
+        ],
         _buildActionButton(context: context),
       ],
     );
@@ -105,7 +109,14 @@ class BookListingListCell extends StatelessWidget {
 
   Widget _buildReadNowButton({required BuildContext context}) {
     return CustomIconButton(
-      onPressed: () {},
+      onPressed: () {
+        if (book.isScanedAvailable) {
+          // TODO: Implement scaned available
+        } else if (book.isFullTextAvailable &&
+            book.accessType == BookAccessType.public) {
+          // TODO: Implement full text available
+        }
+      },
       icon: Icons.menu_book,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       iconColor: Theme.of(context).colorScheme.primary,
