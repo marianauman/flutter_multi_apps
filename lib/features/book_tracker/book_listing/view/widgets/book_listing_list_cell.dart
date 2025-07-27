@@ -8,13 +8,19 @@ import '../../../../../core/constants/app_constants.dart';
 import '../../../../../core/constants/text_constants.dart';
 import '../../../../../shared/widgets/custom_button.dart';
 import '../../../../../shared/widgets/image_network.dart';
+import '../../../my_books/provider/book_listing_provider.dart';
 import '../../model/book_model.dart';
 import '../../provider/book_listing_provider.dart';
 
 class BookListingListCell extends StatelessWidget {
   final BookModel book;
+  final bool isMyBooks;
 
-  const BookListingListCell({super.key, required this.book});
+  const BookListingListCell({
+    super.key,
+    required this.book,
+    this.isMyBooks = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +122,17 @@ class BookListingListCell extends StatelessWidget {
           return CustomButton(
             btnTitle: getBookActionTextUsingStatus(book.status),
             onTap: () {
-              ref.read(bookListingProvider.notifier).handleBookAction(book);
+              if (isMyBooks) {
+                ref
+                    .read(myBooksProvider.notifier)
+                    .updateBookStatus(book.id, book.status);
+              } else {
+                ref.read(bookListingProvider.notifier).handleBookAction(book);
+              }
             },
             borderRadius: 10.r,
           );
-        }
+        },
       ),
     );
   }

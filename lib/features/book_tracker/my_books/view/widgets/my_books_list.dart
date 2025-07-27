@@ -29,7 +29,7 @@ class _MyBooksListState extends ConsumerState<MyBooksList> {
         final book = state.currentTabBooks[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
-          child: BookListingListCell(book: book),
+          child: BookListingListCell(book: book, isMyBooks: true),
         );
       },
     );

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../book_listing/model/book_model.dart';
 import 'book_listing_service.dart';
 import 'book_listing_state.dart';
 import '../../../../core/constants/app_constants.dart';
@@ -51,7 +52,8 @@ class MyBooksProvider extends StateNotifier<MyBooksState> {
     state = state.copyWith(selectedTab: tab);
   }
 
-  Future<void> updateBookStatus(String bookId, BookStatus newStatus) async {
+  Future<void> updateBookStatus(String bookId, BookStatus status) async {
+    var newStatus = getBookNextStatus(status);
     try {
       await _bookService.updateBookStatus(bookId, newStatus);
       await fetchMyBooks();
