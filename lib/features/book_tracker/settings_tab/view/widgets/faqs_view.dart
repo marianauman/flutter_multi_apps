@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_apps/config/routes.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/text_styles.dart';
@@ -11,7 +12,7 @@ class FaqsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkWell(
       onTap: () {
-        
+        NavigationService.push(Routes.faq);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 10.r),

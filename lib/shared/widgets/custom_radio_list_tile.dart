@@ -65,7 +65,6 @@ class CustomRadioListTile<T> extends StatelessWidget {
       child: Container(
         color: Colors.transparent,
         padding: contentPadding ?? EdgeInsets.symmetric(
-          horizontal: 16.r,
           vertical: 12.r,
         ),
         child: Row(

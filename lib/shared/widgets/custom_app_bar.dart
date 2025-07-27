@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../config/routes.dart';
 import '../../config/text_styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -51,7 +52,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         )).toList(),
         leading: leading ?? (automaticallyImplyLeading && canPop
           ? IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => NavigationService.pop(),
                     icon: Icon(
                       Icons.arrow_back,
                       color: Theme.of(context).colorScheme.onPrimary,

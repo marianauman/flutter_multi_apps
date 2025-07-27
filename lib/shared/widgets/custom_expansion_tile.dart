@@ -28,7 +28,7 @@ class CustomExpansionTile extends StatefulWidget {
   final Curve? animationCurve;
   final bool? expandedAlignment;
   final bool? expandedCrossAxisAlignment;
-  final bool? childrenPadding;
+  final bool childrenPadding;
   final Color? collapsedTextColor;
   final Color? textColor;
   final TextStyle? titleTextStyle;
@@ -58,7 +58,7 @@ class CustomExpansionTile extends StatefulWidget {
     this.animationCurve,
     this.expandedAlignment,
     this.expandedCrossAxisAlignment,
-    this.childrenPadding,
+    this.childrenPadding = true,
     this.collapsedTextColor,
     this.textColor,
     this.titleTextStyle,
