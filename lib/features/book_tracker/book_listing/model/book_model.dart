@@ -1,4 +1,5 @@
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/text_constants.dart';
 import '../../../../core/models/pagination_model.dart';
 import '../../../../shared/helpers/json_parser.dart';
 
@@ -11,7 +12,6 @@ class BookModel {
   final bool isAvailable;
   final bool isFullTextAvailable;
   final BookAccessType accessType;
-  final BookAction bookAction;
   final BookStatus status;
   final bool isFavourite;
 
@@ -24,7 +24,6 @@ class BookModel {
     this.isAvailable = false,
     this.isFullTextAvailable = false,
     this.accessType = BookAccessType.none,
-    this.bookAction = BookAction.wantToRead,
     this.status = BookStatus.none,
     this.isFavourite = false,
   });
@@ -56,6 +55,32 @@ BookAccessType setAccessType(String access) {
     return BookAccessType.borrowable;
   }
   return BookAccessType.none;
+}
+
+String getBookStatusText(BookStatus status) {
+  switch (status) {
+    case BookStatus.wantToRead:
+      return TextConstants.wantToRead;
+    case BookStatus.reading:
+      return TextConstants.reading;
+    case BookStatus.finished:
+      return TextConstants.finished;
+    default:
+      return '';
+  }
+}
+
+String getBookActionTextUsingStatus(BookStatus action) {
+  switch (action) {
+    case BookStatus.wantToRead:
+      return TextConstants.start;
+    case BookStatus.reading:
+      return TextConstants.finish;
+    case BookStatus.finished:
+      return TextConstants.start;
+    default:
+      return TextConstants.wantToRead;
+  }
 }
 
 class BookListingModel {
