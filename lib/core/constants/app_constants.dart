@@ -25,7 +25,7 @@ String getBookStatusText(BookStatus status) {
     case BookStatus.finished:
       return TextConstants.finished;
     default:
-      return TextConstants.wantToRead;
+      return '';
   }
 }
 
