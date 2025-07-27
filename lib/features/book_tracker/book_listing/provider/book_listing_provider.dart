@@ -48,7 +48,7 @@ class BookListingProvider extends StateNotifier<BookListingState> {
   void handleScroll(ScrollPosition position) {
     final maxScroll = position.maxScrollExtent;
     final currentScroll = position.pixels;
-    final scrollThreshold = maxScroll * 0.7;
+    final scrollThreshold = maxScroll;
     if (currentScroll >= scrollThreshold &&
         !state.isLoading &&
         !state.isMoreLoading &&

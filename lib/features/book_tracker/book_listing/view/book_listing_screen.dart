@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
+import '../../../../shared/widgets/custom_icon_button.dart';
 import 'widgets/book_listing_list_cell.dart';
 import 'widgets/book_listing_skeleton.dart';
 
@@ -52,6 +53,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
       isLoading: state.isLoading,
       loaderScreen: BookListingSkeleton(),
       isEmpty: state.booksListing.books.isEmpty,
+      actions: [_buildRefreshButton(context: context)],
       child: RefreshIndicator(
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
         onRefresh: () async {
@@ -96,6 +98,16 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildRefreshButton({required BuildContext context}) {
+    return CustomIconButton(
+      onPressed: () {
+        _getBookListing();
+      },
+      icon: Icons.refresh,
+      borderRadius: 10.r,
     );
   }
 }
