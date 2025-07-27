@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
-import 'package:flutter_multi_apps/shared/widgets/custom_icon_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/text_styles.dart';
@@ -96,24 +95,24 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildActionButtons({required BuildContext context}) {
     return Row(
       children: [
-        _buildFavouriteButton(context: context),
-        10.customHorizontalSpace,
+        // _buildFavouriteButton(context: context),
+        // 10.customHorizontalSpace,
         _buildActionButton(context: context),
       ],
     );
   }
 
-  Widget _buildFavouriteButton({required BuildContext context}) {
-    return CustomIconButton(
-      onPressed: () {},
-      icon: book.isFavourite ? Icons.favorite : Icons.favorite_border,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      iconColor: book.isFavourite
-          ? Theme.of(context).colorScheme.primary
-          : Theme.of(context).colorScheme.onSurface.customOpacity(0.6),
-      borderRadius: 10.r,
-    );
-  }
+  // Widget _buildFavouriteButton({required BuildContext context}) {
+  //   return CustomIconButton(
+  //     onPressed: () {},
+  //     icon: book.isFavourite ? Icons.favorite : Icons.favorite_border,
+  //     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+  //     iconColor: book.isFavourite
+  //         ? Theme.of(context).colorScheme.primary
+  //         : Theme.of(context).colorScheme.onSurface.customOpacity(0.6),
+  //     borderRadius: 10.r,
+  //   );
+  // }
 
   Widget _buildActionButton({required BuildContext context}) {
     return Expanded(

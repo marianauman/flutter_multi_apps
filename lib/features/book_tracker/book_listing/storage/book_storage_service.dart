@@ -23,7 +23,6 @@ class BookStorageService {
         isFullTextAvailable: book.isFullTextAvailable,
         accessType: book.accessType,
         status: status,
-        isFavourite: book.isFavourite,
       );
 
       // Save to myBooksBox with book ID as key
@@ -56,7 +55,7 @@ class BookStorageService {
       throw Exception('Failed to get all my books: $e');
     }
   }
-  
+
   // Update book status
   Future<void> updateBookStatus(String bookId, BookStatus newStatus) async {
     try {
@@ -77,7 +76,6 @@ class BookStorageService {
           isFullTextAvailable: book.isFullTextAvailable,
           accessType: book.accessType,
           status: newStatus,
-          isFavourite: book.isFavourite,
         );
 
         await _hiveManager.putData(

@@ -19,7 +19,6 @@ class HiveBoxSharedInstance {
     try {
       await _storageService.init();
       await Future.wait([
-        _storageService.openBox(HiveConstants.favouriteBooksBox),
         _storageService.openBox(HiveConstants.myBooksBox),
         _storageService.openBox(HiveConstants.settingsBox),
       ]);

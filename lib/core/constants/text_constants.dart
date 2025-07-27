@@ -14,7 +14,6 @@ class TextConstants {
   static const String wantToRead = 'Want to Read';
   static const String reading = 'Reading';
   static const String finished = 'Finished';
-  static const String favorite = 'Favorite';
   static const String all = 'All';
   static const String start = 'Start';
   static const String finish = 'Finish';

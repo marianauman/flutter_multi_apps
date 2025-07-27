@@ -1,22 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../config/text_styles.dart';
 import '../../../../config/theme.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
 import '../../book_listing/view/book_listing_screen.dart';
+import '../../my_books/provider/book_listing_provider.dart';
 import '../../my_books/view/my_books_screen.dart';
 
-class BookTrackerDashboardScreen extends StatefulWidget {
+class BookTrackerDashboardScreen extends ConsumerStatefulWidget {
   const BookTrackerDashboardScreen({super.key});
 
   @override
-  State<BookTrackerDashboardScreen> createState() =>
+  ConsumerState<BookTrackerDashboardScreen> createState() =>
       _BookTrackerDashboardScreenState();
 }
 
 class _BookTrackerDashboardScreenState
-    extends State<BookTrackerDashboardScreen> {
+    extends ConsumerState<BookTrackerDashboardScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
@@ -53,6 +55,9 @@ class _BookTrackerDashboardScreenState
             setState(() {
               _currentIndex = index;
             });
+            if (index == 0) {
+              ref.read(myBooksProvider.notifier).fetchMyBooks();
+            }
           },
         ),
         Positioned(

@@ -13,7 +13,6 @@ class BookModel {
   final bool isFullTextAvailable;
   final BookAccessType accessType;
   final BookStatus status;
-  final bool isFavourite;
 
   BookModel({
     this.id = '',
@@ -25,7 +24,6 @@ class BookModel {
     this.isFullTextAvailable = false,
     this.accessType = BookAccessType.none,
     this.status = BookStatus.none,
-    this.isFavourite = false,
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
@@ -54,7 +52,6 @@ class BookModel {
         isFullTextAvailable: JsonParser.parseBool(json['isFullTextAvailable']),
         accessType: BookAccessType.values[json['accessType'] ?? 0],
         status: BookStatus.values[json['status'] ?? 0],
-        isFavourite: JsonParser.parseBool(json['isFavourite']),
       );
     }
   }
@@ -76,7 +73,6 @@ class BookModel {
       'isFullTextAvailable': isFullTextAvailable,
       'accessType': accessType.index,
       'status': status.index,
-      'isFavourite': isFavourite,
     };
   }
 
@@ -91,7 +87,6 @@ class BookModel {
       isFullTextAvailable: isFullTextAvailable,
       accessType: accessType,
       status: updatedStatus,
-      isFavourite: isFavourite,
     );
   }
 }
