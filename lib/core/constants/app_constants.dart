@@ -2,7 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum BookStatus { none, wantToRead, reading, finished }
 
-enum BookAccessType { none, public, borrowable }
+enum BookAccessType { none, public, borrowable, printdisabled }
 
 enum DialogPosition { top, center, bottom }
 

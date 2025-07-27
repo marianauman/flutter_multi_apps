@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../config/routes.dart';
 import '../../../../../config/text_styles.dart';
 import '../../../../../core/constants/app_constants.dart';
 import '../../../../../core/constants/text_constants.dart';
@@ -96,7 +97,7 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildActionButtons({required BuildContext context}) {
     return Row(
       children: [
-        if (book.isReadable || book.hasScannedPdf) ...[
+        if (book.isReadable) ...[
           _buildReadNowButton(context: context),
           10.customHorizontalSpace,
         ],
@@ -108,19 +109,23 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildReadNowButton({required BuildContext context}) {
     return CustomIconButton(
       onPressed: () {
-        if (book.isReadable) {
-          // TODO: Implement scaned available
-        } else if (book.hasScannedPdf) {
-          // TODO: Implement full text available
-        } else {
-          // TODO: Implement no available
-        }
+        _openBookWebView(book.bookUrl);
       },
-      icon: Icons.menu_book,
+      icon: book.isReadable ? Icons.menu_book : Icons.picture_as_pdf,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       iconColor: Theme.of(context).colorScheme.primary,
       borderRadius: 10.r,
     );
+  }
+
+  void _openBookWebView(String url) {
+    Map<String, dynamic> extra = {
+      'app_bar_title': book.title,
+      'web_url': url,
+      'is_zoom_enabled': true,
+    };
+
+    NavigationService.push(Routes.appWebView, extra: extra);
   }
 
   Widget _buildActionButton({required BuildContext context}) {

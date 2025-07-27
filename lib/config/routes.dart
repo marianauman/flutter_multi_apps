@@ -7,6 +7,8 @@ import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen.da
 import '../features/expense_tracker/expense_tracker_home_screen.dart';
 import '../features/splash/splash_screen.dart';
 import '../main/main_common.dart';
+import '../shared/helpers/json_parser.dart';
+import '../shared/helpers/web_view/app_web_view_widget.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -31,6 +33,20 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
+      path: Routes.appWebView,
+      builder: (BuildContext context, GoRouterState state) {
+        final extra = state.extra as Map<String, dynamic>;
+        final appBarTitle = JsonParser.parseString(extra['app_bar_title']);
+        final webUrl = JsonParser.parseString(extra['web_url']);
+        final isZoomEnabled = JsonParser.parseBool(extra['is_zoom_enabled']);
+        return AppWebViewWidget(
+          appBarTitle: appBarTitle,
+          webUrl: webUrl,
+          isZoomEnabled: isZoomEnabled,
+        );
+      },
+    ),
+    GoRoute(
       path: Routes.dummyRoute,
       builder: (BuildContext context, GoRouterState state) {
         return Container(color: Theme.of(context).colorScheme.surface);
@@ -43,6 +59,7 @@ class Routes {
   static const String splash = '/';
   // static const String login = '/login';
   static final String dashboard = appconfig.dashboardPath;
+  static const String appWebView = '/appWebView';
   static const String dummyRoute = '/dummyRoute';
 }
 
