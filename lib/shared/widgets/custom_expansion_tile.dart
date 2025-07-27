@@ -159,7 +159,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                       color: _isExpanded 
                           ? (widget.iconColor ?? colorScheme.primary)
                           : (widget.collapsedIconColor ?? colorScheme.onSurface),
-                      size: widget.iconSize ?? 24,
+                      size: widget.iconSize ?? 24.r,
                     ),
                   ),
                 ],

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/text_constants.dart';
 import 'widgets/clear_storage_view.dart';
+import 'widgets/faqs_view.dart';
 import 'widgets/set_theme_view.dart';
 
 class MenuScreen extends ConsumerStatefulWidget {
@@ -28,6 +29,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
             const SetThemeView(),
             15.customVerticalSpace,
             const ClearStorageView(),
+            15.customVerticalSpace,
+            const FaqsView(),
           ],
         ),
       ),

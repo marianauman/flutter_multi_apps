@@ -31,4 +31,7 @@ class TextConstants {
   static const String clearStorageConfirmation =
       'Are you sure you want to clear all data from the app?';
   static const String clear = 'Clear';
+  static const String faqs = 'FAQs';
+  static const String faqsDescription =
+      'Frequently asked questions and answers';
 }

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
-import 'package:flutter_multi_apps/shared/helpers/app_alerts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/text_styles.dart';
 import '../../../../../core/constants/text_constants.dart';
 import '../../../../../shared/widgets/custom_ink_well.dart';
 
-class ClearStorageView extends StatelessWidget {
-  const ClearStorageView({super.key});
+class FaqsView extends StatelessWidget {
+  const FaqsView({super.key});
   @override
   Widget build(BuildContext context) {
     return CustomInkWell(
       onTap: () {
-        _showClearStorageConfirmationDialog(context);
+        
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 10.r),
@@ -25,7 +24,7 @@ class ClearStorageView extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                Icons.cleaning_services_rounded,
+                Icons.question_answer_rounded,
                 color: Theme.of(context).colorScheme.primary,
               ),
               12.customHorizontalSpace,
@@ -33,31 +32,20 @@ class ClearStorageView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText.body1(text: TextConstants.clearStorage),
+                    AppText.body1(text: TextConstants.faqs),
                     6.customVerticalSpace,
                     AppText.subText2(
-                      text: TextConstants.clearStorageDescription,
+                      text: TextConstants.faqsDescription,
                     ),
                   ],
                 ),
               ),
               12.customHorizontalSpace,
-              Icon(Icons.delete_forever_rounded, color: Colors.red, size: 24.r),
+              Icon(Icons.keyboard_arrow_right, color: Theme.of(context).colorScheme.onSurface, size: 24.r),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  void _showClearStorageConfirmationDialog(BuildContext context) {
-    AppAlerts.showConfirmationDialog(
-      title: TextConstants.clearStorage,
-      message: TextConstants.clearStorageConfirmation,
-      confirmBtnTitle: TextConstants.clear,
-      cancelBtnTitle: TextConstants.cancel,
-      onTapCancel: (value) {},
-      onTapConfirm: (value) {},
     );
   }
 }
