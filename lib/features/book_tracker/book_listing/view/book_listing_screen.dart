@@ -49,7 +49,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen> {
     var state = ref.watch(bookListingProvider);
     return BaseScreen(
       title: TextConstants.discoverBooks,
-      isLoading: !state.isLoading,
+      isLoading: state.isLoading,
       loaderScreen: BookListingSkeleton(),
       isEmpty: state.booksListing.books.isEmpty,
       child: RefreshIndicator(
