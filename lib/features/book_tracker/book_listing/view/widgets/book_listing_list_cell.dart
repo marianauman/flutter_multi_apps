@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
+import 'package:flutter_multi_apps/shared/widgets/custom_ink_well.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/routes.dart';
@@ -25,19 +26,24 @@ class BookListingListCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 10.r),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _coverImage(),
-          10.customHorizontalSpace,
-          _bookDetails(context: context),
-        ],
+    return CustomInkWell(
+      onTap: () {
+        _openBookWebView(book.workUrl);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 10.r),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _coverImage(),
+            10.customHorizontalSpace,
+            _bookDetails(context: context),
+          ],
+        ),
       ),
     );
   }

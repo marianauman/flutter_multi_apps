@@ -178,7 +178,7 @@ class _AppWebViewWidgetState extends ConsumerState<AppWebViewWidget> {
                 value: webViewState.progress,
                 color: Theme.of(context).colorScheme.primary,
                 backgroundColor: Colors.transparent,
-                minHeight: 4,
+                minHeight: 10,
               ),
             ),
         ],

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
+import '../../../../shared/widgets/custom_ink_well.dart';
 import 'widgets/book_listing_list_cell.dart';
 import 'widgets/book_listing_skeleton.dart';
 
@@ -119,7 +120,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen>
   }
 
   Widget _buildRefreshButton({required BuildContext context}) {
-    return GestureDetector(
+    return CustomInkWell(
       onTap: () {
         _getBookListing(isRefresh: true);
       },

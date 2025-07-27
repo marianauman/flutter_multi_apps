@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/text_styles.dart';
 import '../../../../../core/constants/app_constants.dart';
 import '../../../../../core/constants/text_constants.dart';
+import '../../../../../shared/widgets/custom_ink_well.dart';
 import '../../model/my_books_tabs_model.dart';
 import '../../provider/book_listing_provider.dart';
 
@@ -82,7 +83,7 @@ class _MyBooksTabsState extends ConsumerState<MyBooksTabs> {
       ),
       child: Material(
         color: Colors.transparent,
-        child: InkWell(
+        child: CustomInkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
             ref.read(myBooksProvider.notifier).selectTab(tab.status);
