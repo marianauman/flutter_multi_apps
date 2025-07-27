@@ -42,7 +42,6 @@ class FAQScreen extends StatelessWidget {
             children: [
               AppText.body1(text: faq['answer']!),
             ],
-            childrenPadding: true,
           );
         },
         separatorBuilder: (context, index) {
