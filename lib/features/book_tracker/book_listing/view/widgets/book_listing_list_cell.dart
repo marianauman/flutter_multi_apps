@@ -115,9 +115,16 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildReadNowButton({required BuildContext context}) {
     return CustomIconButton(
       onPressed: () {
-        _openBookWebView(book.bookUrl);
+        String url = book.workUrl;
+        if (book.guId.isNotEmpty) {
+          url = book.bookGuUrl;
+        } else if (book.lendingIdentifier.isNotEmpty ||
+            book.iaIdentifier.isNotEmpty) {
+          url = book.bookIdentifierUrl;
+        }
+        _openBookWebView(url);
       },
-      icon: book.isReadable ? Icons.menu_book : Icons.picture_as_pdf,
+      icon: Icons.menu_book,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       iconColor: Theme.of(context).colorScheme.primary,
       borderRadius: 10.r,

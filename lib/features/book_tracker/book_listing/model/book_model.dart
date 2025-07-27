@@ -13,6 +13,8 @@ class BookModel {
   final bool isFullTextAvailable;
   final BookAccessType accessType;
   final String lendingIdentifier;
+  final String iaIdentifier;
+  final String guId;
   final BookStatus status;
 
   BookModel({
@@ -25,6 +27,8 @@ class BookModel {
     this.isFullTextAvailable = false,
     this.accessType = BookAccessType.none,
     this.lendingIdentifier = '',
+    this.iaIdentifier = '',
+    this.guId = '',
     this.status = BookStatus.none,
   });
 
@@ -41,6 +45,13 @@ class BookModel {
         isScannedAvailable: JsonParser.parseBool(json['public_scan_b']),
         isFullTextAvailable: JsonParser.parseBool(json['has_fulltext']),
         lendingIdentifier: JsonParser.parseString(json['lending_identifier_s']),
+        iaIdentifier:
+            JsonParser.parseList<String>(json['ia']).firstOrNull ?? '',
+        guId:
+            JsonParser.parseList<String>(
+              json['id_project_gutenberg'],
+            ).firstOrNull ??
+            '',
         accessType: setAccessType(JsonParser.parseString(json['ebook_access'])),
       );
     } else {
@@ -53,6 +64,8 @@ class BookModel {
         coverId: JsonParser.parseString(json['coverId']),
         isScannedAvailable: JsonParser.parseBool(json['isScannedAvailable']),
         lendingIdentifier: JsonParser.parseString(json['lendingIdentifier']),
+        iaIdentifier: JsonParser.parseString(json['iaIdentifier']),
+        guId: JsonParser.parseString(json['guId']),
         isFullTextAvailable: JsonParser.parseBool(json['isFullTextAvailable']),
         accessType: BookAccessType.values[json['accessType'] ?? 0],
         status: BookStatus.values[json['status'] ?? 0],
@@ -66,13 +79,18 @@ class BookModel {
 
   String get workUrl => 'https://openlibrary.org$workKey';
 
-  String get bookUrl =>
-      'https://archive.org/details/$lendingIdentifier/mode/2up';
+  String get bookGuUrl =>
+      'https://www.gutenberg.org/cache/epub/$guId/pg${guId}-images.html';
+
+  String get bookIdentifierUrl =>
+      'https://archive.org/details/${lendingIdentifier.isNotEmpty ? lendingIdentifier : iaIdentifier}';
 
   bool get isReadable =>
       isFullTextAvailable &&
       accessType == BookAccessType.public &&
-      lendingIdentifier.isNotEmpty;
+      (lendingIdentifier.isNotEmpty ||
+          iaIdentifier.isNotEmpty ||
+          guId.isNotEmpty);
 
   Map<String, dynamic> toJson() {
     return {
@@ -83,6 +101,8 @@ class BookModel {
       'coverId': coverId,
       'isScannedAvailable': isScannedAvailable,
       'lendingIdentifier': lendingIdentifier,
+      'iaIdentifier': iaIdentifier,
+      'guId': guId,
       'isFullTextAvailable': isFullTextAvailable,
       'accessType': accessType.index,
       'status': status.index,
@@ -98,6 +118,8 @@ class BookModel {
       coverId: coverId,
       isScannedAvailable: isScannedAvailable,
       lendingIdentifier: lendingIdentifier,
+      iaIdentifier: iaIdentifier,
+      guId: guId,
       isFullTextAvailable: isFullTextAvailable,
       accessType: accessType,
       status: updatedStatus,
