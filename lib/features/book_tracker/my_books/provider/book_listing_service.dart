@@ -14,27 +14,11 @@ class MyBooksService {
     }
   }
 
-  Future<List<BookModel>> getBooksByStatus(BookStatus status) async {
-    try {
-      return await _storageService.getBooksByStatus(status);
-    } catch (e) {
-      throw Exception('Failed to get books by status: $e');
-    }
-  }
-
   Future<void> updateBookStatus(String bookId, BookStatus newStatus) async {
     try {
       await _storageService.updateBookStatus(bookId, newStatus);
     } catch (e) {
       throw Exception('Failed to update book status: $e');
-    }
-  }
-
-  Future<void> removeBook(String bookId) async {
-    try {
-      await _storageService.removeBookFromMyBooks(bookId);
-    } catch (e) {
-      throw Exception('Failed to remove book: $e');
     }
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../model/book_model.dart';
-import '../storage/book_storage_service.dart';
 import 'book_listing_service.dart';
 import 'book_listing_state.dart';
 
@@ -66,9 +65,9 @@ class BookListingProvider extends StateNotifier<BookListingState> {
       updatedStatus: getBookNextStatus(book.status),
     );
     if (book.status == BookStatus.none) {
-      BookStorageService.db.saveBookToWantToRead(updatedBook);
+      _bookService.saveBookToMyBooks(updatedBook);
     } else {
-      BookStorageService.db.updateBookStatus(book.id, updatedBook.status);
+      _bookService.updateBookStatus(book.id, updatedBook.status);
     }
     state = state.copyWith(
       booksListing: BookListingModel(

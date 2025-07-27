@@ -1,9 +1,13 @@
 import 'package:flutter_multi_apps/features/book_tracker/book_listing/model/book_model.dart';
 import '../../../../core/constants/api_constants.dart';
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/managers/api_managers.dart';
 import '../../../../core/models/pagination_model.dart';
+import '../storage/book_storage_service.dart';
 
 class BookListingService {
+
+  final BookStorageService _storageService = BookStorageService.db;
 
   Future<BookListingModel?> fetchBookListing({String query = 'fiction', int page = 1}) async {
     String endpoint = "${ApiConstants.bookListing}?q=$query&page=$page";
@@ -16,5 +20,21 @@ class BookListingService {
       return BookListingModel(books: books, pagination: pagination);
     }
     return null;
+  }
+
+  Future<void> saveBookToMyBooks(BookModel book) async {
+    try {
+      await _storageService.saveBookToMyBooks(book, BookStatus.wantToRead);
+    } catch (e) {
+      throw Exception('Failed to save book to my books: $e');
+    }
+  }
+
+  Future<void> updateBookStatus(String bookId, BookStatus newStatus) async {
+    try {
+      await _storageService.updateBookStatus(bookId, newStatus);
+    } catch (e) {
+      throw Exception('Failed to update book status: $e');
+    }
   }
 }
