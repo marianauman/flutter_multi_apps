@@ -12,6 +12,7 @@ import '../core/utils/app_utils.dart';
 late AppConfiguration appconfig;
 
 void mainCommon({required AppFlavor flavor}) async {
+  WidgetsFlutterBinding.ensureInitialized();
   appconfig = AppConfiguration.getInstance(flavor);
   await initializeHive();
   runApp(ProviderScope(child: const AppMainCommon()));

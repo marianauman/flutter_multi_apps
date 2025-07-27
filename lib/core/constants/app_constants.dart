@@ -1,7 +1,5 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'text_constants.dart';
-
 enum BookStatus { none, wantToRead, reading, finished }
 
 enum BookAccessType { none, public, borrowable }
