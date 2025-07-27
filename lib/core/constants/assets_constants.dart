@@ -13,6 +13,7 @@ class AssetsConstants {
   static final String errorIcon = '${baseAssetsCommonPath}icon_error.png';
   static final String infoIcon = '${baseAssetsCommonPath}icon_info.png';
   static final String closeIcon = '${baseAssetsCommonPath}icon_close.png';
+  static final String booksImage = '${baseAssetsCommonPath}books_image.png';
 
   //General json
   static final String emptyState = '${baseAssetsCommonPath}empty_state.json';

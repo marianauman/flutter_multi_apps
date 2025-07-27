@@ -6,13 +6,20 @@ import '../config/app_config.dart';
 import '../config/routes.dart';
 import '../config/theme.dart';
 import '../core/providers/theme_provider.dart';
+import '../core/shared_instances.dart/hive_box_shared_instance.dart';
 import '../core/utils/app_utils.dart';
 
 late AppConfiguration appconfig;
 
-void mainCommon({required AppFlavor flavor}) {
+void mainCommon({required AppFlavor flavor}) async {
   appconfig = AppConfiguration.getInstance(flavor);
+  await initializeHive();
   runApp(ProviderScope(child: const AppMainCommon()));
+}
+
+Future<void> initializeHive() async {
+  HiveBoxSharedInstance boxManager = HiveBoxSharedInstance();
+  await boxManager.initializeBoxes();
 }
 
 class AppMainCommon extends ConsumerStatefulWidget {
