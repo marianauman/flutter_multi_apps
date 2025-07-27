@@ -10,30 +10,27 @@ class MyBooksTopImage extends StatelessWidget {
   const MyBooksTopImage({super.key});
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: EdgeInsets.only(bottom: 10.r),
-      sliver: SliverList(
-        delegate: SliverChildListDelegate([
-          Container(
-            height: 270.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors().primary,
-                  AppColors().primary.customOpacity(0.8),
-                ],
-              ),
-            ),
-            child: ImageAsset(
-              imagePath: AssetsConstants.booksImage,
-              fit: BoxFit.cover,
+    return SliverList(
+      delegate: SliverChildListDelegate([
+        Container(
+          height: 270.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors().primary,
+                AppColors().primary.customOpacity(0.8),
+              ],
             ),
           ),
-        ]),
-      ),
+          child: ImageAsset(
+            imagePath: AssetsConstants.booksImage,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ]),
     );
   }
 }

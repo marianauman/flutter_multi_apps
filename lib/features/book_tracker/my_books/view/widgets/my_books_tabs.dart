@@ -51,7 +51,7 @@ class _MyBooksTabsState extends State<MyBooksTabs> {
 
     return Container(
       color: Theme.of(context).colorScheme.surface,
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
