@@ -6,6 +6,7 @@ import '../../../../../config/text_styles.dart';
 import '../../../../../core/constants/app_constants.dart';
 import '../../../../../core/constants/text_constants.dart';
 import '../../../../../shared/widgets/custom_button.dart';
+import '../../../../../shared/widgets/custom_icon_button.dart';
 import '../../../../../shared/widgets/image_network.dart';
 import '../../../my_books/provider/book_listing_provider.dart';
 import '../../model/book_model.dart';
@@ -95,24 +96,22 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildActionButtons({required BuildContext context}) {
     return Row(
       children: [
-        // _buildFavouriteButton(context: context),
-        // 10.customHorizontalSpace,
+        _buildReadNowButton(context: context),
+        10.customHorizontalSpace,
         _buildActionButton(context: context),
       ],
     );
   }
 
-  // Widget _buildFavouriteButton({required BuildContext context}) {
-  //   return CustomIconButton(
-  //     onPressed: () {},
-  //     icon: book.isFavourite ? Icons.favorite : Icons.favorite_border,
-  //     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-  //     iconColor: book.isFavourite
-  //         ? Theme.of(context).colorScheme.primary
-  //         : Theme.of(context).colorScheme.onSurface.customOpacity(0.6),
-  //     borderRadius: 10.r,
-  //   );
-  // }
+  Widget _buildReadNowButton({required BuildContext context}) {
+    return CustomIconButton(
+      onPressed: () {},
+      icon: Icons.menu_book,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      iconColor: Theme.of(context).colorScheme.primary,
+      borderRadius: 10.r,
+    );
+  }
 
   Widget _buildActionButton({required BuildContext context}) {
     return Expanded(
