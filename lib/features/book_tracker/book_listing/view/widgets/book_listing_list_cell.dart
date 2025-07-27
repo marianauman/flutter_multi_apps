@@ -96,9 +96,7 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildActionButtons({required BuildContext context}) {
     return Row(
       children: [
-        if ((book.isFullTextAvailable &&
-                book.accessType == BookAccessType.public) ||
-            (book.isScannedAvailable && book.lendingIdentifier.isNotEmpty)) ...[
+        if (book.isReadable || book.hasScannedPdf) ...[
           _buildReadNowButton(context: context),
           10.customHorizontalSpace,
         ],
@@ -110,11 +108,12 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildReadNowButton({required BuildContext context}) {
     return CustomIconButton(
       onPressed: () {
-        if (book.isScannedAvailable && book.lendingIdentifier.isNotEmpty) {
+        if (book.isReadable) {
           // TODO: Implement scaned available
-        } else if (book.isFullTextAvailable &&
-            book.accessType == BookAccessType.public) {
+        } else if (book.hasScannedPdf) {
           // TODO: Implement full text available
+        } else {
+          // TODO: Implement no available
         }
       },
       icon: Icons.menu_book,

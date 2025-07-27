@@ -66,6 +66,11 @@ class BookModel {
 
   String get workUrl => 'https://openlibrary.org$workKey';
 
+  bool get isReadable =>
+      isFullTextAvailable && accessType == BookAccessType.public;
+
+  bool get hasScannedPdf => isScannedAvailable && lendingIdentifier.isNotEmpty;
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
