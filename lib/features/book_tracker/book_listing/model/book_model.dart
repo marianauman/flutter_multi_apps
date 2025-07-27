@@ -9,9 +9,10 @@ class BookModel {
   final List<String> authors;
   final String workKey;
   final String coverId;
-  final bool isAvailable;
+  final bool isScannedAvailable;
   final bool isFullTextAvailable;
   final BookAccessType accessType;
+  final String lendingIdentifier;
   final BookStatus status;
 
   BookModel({
@@ -20,9 +21,10 @@ class BookModel {
     this.authors = const [],
     this.workKey = '',
     this.coverId = '',
-    this.isAvailable = false,
+    this.isScannedAvailable = false,
     this.isFullTextAvailable = false,
     this.accessType = BookAccessType.none,
+    this.lendingIdentifier = '',
     this.status = BookStatus.none,
   });
 
@@ -36,8 +38,9 @@ class BookModel {
         authors: JsonParser.parseList<String>(json['author_name']),
         workKey: JsonParser.parseString(json['key']),
         coverId: JsonParser.parseString(json['cover_i']),
-        isAvailable: JsonParser.parseBool(json['public_scan_b']),
+        isScannedAvailable: JsonParser.parseBool(json['public_scan_b']),
         isFullTextAvailable: JsonParser.parseBool(json['has_fulltext']),
+        lendingIdentifier: JsonParser.parseString(json['lending_identifier_s']),
         accessType: setAccessType(JsonParser.parseString(json['ebook_access'])),
       );
     } else {
@@ -48,7 +51,8 @@ class BookModel {
         authors: List<String>.from(json['authors'] ?? []),
         workKey: JsonParser.parseString(json['workKey']),
         coverId: JsonParser.parseString(json['coverId']),
-        isAvailable: JsonParser.parseBool(json['isAvailable']),
+        isScannedAvailable: JsonParser.parseBool(json['isScannedAvailable']),
+        lendingIdentifier: JsonParser.parseString(json['lendingIdentifier']),
         isFullTextAvailable: JsonParser.parseBool(json['isFullTextAvailable']),
         accessType: BookAccessType.values[json['accessType'] ?? 0],
         status: BookStatus.values[json['status'] ?? 0],
@@ -69,7 +73,8 @@ class BookModel {
       'authors': authors,
       'workKey': workKey,
       'coverId': coverId,
-      'isAvailable': isAvailable,
+      'isScannedAvailable': isScannedAvailable,
+      'lendingIdentifier': lendingIdentifier,
       'isFullTextAvailable': isFullTextAvailable,
       'accessType': accessType.index,
       'status': status.index,
@@ -83,7 +88,8 @@ class BookModel {
       authors: authors,
       workKey: workKey,
       coverId: coverId,
-      isAvailable: isAvailable,
+      isScannedAvailable: isScannedAvailable,
+      lendingIdentifier: lendingIdentifier,
       isFullTextAvailable: isFullTextAvailable,
       accessType: accessType,
       status: updatedStatus,

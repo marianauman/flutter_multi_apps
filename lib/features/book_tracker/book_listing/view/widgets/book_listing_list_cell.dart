@@ -98,7 +98,7 @@ class BookListingListCell extends StatelessWidget {
       children: [
         if ((book.isFullTextAvailable &&
                 book.accessType == BookAccessType.public) ||
-            book.isScanedAvailable) ...[
+            (book.isScannedAvailable && book.lendingIdentifier.isNotEmpty)) ...[
           _buildReadNowButton(context: context),
           10.customHorizontalSpace,
         ],
@@ -110,7 +110,7 @@ class BookListingListCell extends StatelessWidget {
   Widget _buildReadNowButton({required BuildContext context}) {
     return CustomIconButton(
       onPressed: () {
-        if (book.isScanedAvailable) {
+        if (book.isScannedAvailable && book.lendingIdentifier.isNotEmpty) {
           // TODO: Implement scaned available
         } else if (book.isFullTextAvailable &&
             book.accessType == BookAccessType.public) {
