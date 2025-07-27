@@ -54,7 +54,7 @@ class CustomDialogWidget extends StatelessWidget {
                       NavigationService.pop(false);
                     },
                     imagePath: AssetsConstants.closeIcon,
-                    size: 25.r,
+                      size: 20.r,
                     paddingAll: 10.r,
                     backgroundColor: Theme.of(context)
                         .colorScheme
@@ -63,6 +63,8 @@ class CustomDialogWidget extends StatelessWidget {
                 )
                 : const SizedBox.shrink(),
           ]),
+
+          10.customVerticalSpace,
          
           AppText.body2(text: subtitle),
 

@@ -17,4 +17,18 @@ class TextConstants {
   static const String all = 'All';
   static const String start = 'Start';
   static const String finish = 'Finish';
+  static const String theme = 'Theme';
+  static const String system = 'System';
+  static const String light = 'Light';
+  static const String dark = 'Dark';
+  static const String followSystemThemeSettings =
+      'Follow system theme settings';
+  static const String alwaysUseLightTheme = 'Always use light theme';
+  static const String alwaysUseDarkTheme = 'Always use dark theme';
+  static const String clearStorage = 'Clear Storage';
+  static const String clearStorageDescription =
+      'Clear all data from the app, including books and settings.';
+  static const String clearStorageConfirmation =
+      'Are you sure you want to clear all data from the app?';
+  static const String clear = 'Clear';
 }

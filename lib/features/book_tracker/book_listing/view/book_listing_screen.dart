@@ -88,7 +88,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen>
                   controller: _scrollController,
                   shrinkWrap: true,
                   physics: const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(vertical: 25.r),
+                  padding: EdgeInsets.symmetric(vertical: 15.r),
                   itemCount:
                       state.booksListing.books.length +
                       (state.isMoreLoading ? 1 : 0),

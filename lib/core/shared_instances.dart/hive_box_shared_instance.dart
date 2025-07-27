@@ -20,7 +20,7 @@ class HiveBoxSharedInstance {
       await _storageService.init();
       await Future.wait([
         _storageService.openBox(HiveConstants.myBooksBox),
-        _storageService.openBox(HiveConstants.settingsBox),
+        _storageService.openBox(HiveConstants.themeBox),
       ]);
     } catch (e) {
       throw HiveStorageException('Failed to initialize boxes: $e');

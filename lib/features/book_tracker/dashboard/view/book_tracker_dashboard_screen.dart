@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../config/text_styles.dart';
 import '../../../../config/theme.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
@@ -9,6 +8,7 @@ import '../../book_listing/provider/book_listing_provider.dart';
 import '../../book_listing/view/book_listing_screen.dart';
 import '../../my_books/provider/book_listing_provider.dart';
 import '../../my_books/view/my_books_screen.dart';
+import '../../settings_tab/view/menu_screen.dart';
 
 class BookTrackerDashboardScreen extends ConsumerStatefulWidget {
   const BookTrackerDashboardScreen({super.key});
@@ -25,7 +25,7 @@ class _BookTrackerDashboardScreenState
   final List<Widget> _pages = [
     const MyBooksScreen(),
     const BookListingScreen(),
-    Center(child: AppText.body1(text: 'Settings')),
+    const MenuScreen(),
   ];
 
   final List<BottomNavigationBarItem> _items = [

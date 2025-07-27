@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/app_config.dart';
 import '../config/routes.dart';
 import '../config/theme.dart';
-import '../core/providers/theme_provider.dart';
+import '../features/book_tracker/settings_tab/provider/theme_provider.dart';
 import '../core/shared_instances.dart/hive_box_shared_instance.dart';
 import '../core/utils/app_utils.dart';
 
