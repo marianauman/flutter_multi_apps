@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
 import 'package:flutter_multi_apps/shared/widgets/custom_icon_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../config/text_styles.dart';
-import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/text_constants.dart';
-import '../../../../shared/widgets/custom_button.dart';
-import '../../../../shared/widgets/image_network.dart';
-import '../model/book_model.dart';
+import '../../../../../config/text_styles.dart';
+import '../../../../../core/constants/app_constants.dart';
+import '../../../../../core/constants/text_constants.dart';
+import '../../../../../shared/widgets/custom_button.dart';
+import '../../../../../shared/widgets/image_network.dart';
+import '../../model/book_model.dart';
 
 class BookListingListCell extends StatelessWidget {
   final BookModel book;
@@ -63,8 +63,10 @@ class BookListingListCell extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          10.customVerticalSpace,
-          _buildStatus(context: context),
+          if (book.status != BookStatus.none) ...[
+            10.customVerticalSpace,
+            _buildStatus(context: context),
+          ],
           20.customVerticalSpace,
           _buildActionButtons(context: context),
         ],
