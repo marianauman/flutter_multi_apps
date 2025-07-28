@@ -11,6 +11,7 @@ class BookListingProvider extends StateNotifier<BookListingState> {
     : super(
         BookListingState(
           booksListing: BookListingModel.empty(),
+          bookAppliedFiltersData: {},
           query: '',
           isLoading: false,
           isMoreLoading: false,
@@ -19,6 +20,26 @@ class BookListingProvider extends StateNotifier<BookListingState> {
 
   final BookListingService _bookService;
 
+  String getQueryString() {
+    if (state.bookAppliedFiltersData.isNotEmpty) {
+      String title = state.bookAppliedFiltersData['title'] ?? '';
+      String author = state.bookAppliedFiltersData['author'] ?? '';
+      bool isReadable = state.bookAppliedFiltersData['is_readable'] ?? false;
+      String queryString = '';
+      if (title.isNotEmpty) {
+        queryString += '&title=$title';
+      }
+      if (author.isNotEmpty) {
+        queryString += '&author=$author';
+      }
+      if (isReadable) {
+        queryString += '&isReadable=$isReadable';
+      }
+      return queryString.trim().isEmpty ? '&q=fiction' : queryString;
+    }
+    return '&q=fiction';
+  }
+
   Future<void> fetchBookListing({int page = 1}) async {
     if (page == 1) {
       state = state.copyWith(isLoading: true);
@@ -26,7 +47,11 @@ class BookListingProvider extends StateNotifier<BookListingState> {
       state = state.copyWith(isMoreLoading: true);
     }
     try {
-      final model = await _bookService.fetchBookListing(page: page);
+      String queryString = getQueryString();
+      final model = await _bookService.fetchBookListing(
+        queryString: queryString,
+        page: page,
+      );
       if (model == null) return;
       state = state.copyWith(
         booksListing: BookListingModel(
@@ -100,6 +125,18 @@ class BookListingProvider extends StateNotifier<BookListingState> {
       );
     } catch (e) {
       // Handle error if needed
+    }
+  }
+
+  Future<void> applyFilter(Map<String, dynamic> filters) async {
+    state = state.copyWith(bookAppliedFiltersData: filters);
+    await fetchBookListing(page: 1);
+  }
+
+  Future<void> clearFilters() async {
+    if (state.bookAppliedFiltersData.isNotEmpty) {
+      state = state.copyWith(bookAppliedFiltersData: {});
+      await fetchBookListing(page: 1);
     }
   }
 }

@@ -9,8 +9,11 @@ class BookListingService {
 
   final BookStorageService _storageService = BookStorageService.db;
 
-  Future<BookListingModel?> fetchBookListing({String query = 'fiction', int page = 1}) async {
-    String endpoint = "${ApiConstants.bookListing}?q=$query&page=$page";
+  Future<BookListingModel?> fetchBookListing({
+    String queryString = '&q=fiction',
+    int page = 1,
+  }) async {
+    String endpoint = "${ApiConstants.bookListing}?page=$page$queryString";
     final response = await ApiManager(endpoint: endpoint).getApi();
 
     if(response['docs'] is List) {

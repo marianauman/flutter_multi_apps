@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../config/app_config.dart';
+import '../features/book_tracker/book_listing/view/book_filters_screen.dart';
 import '../features/book_tracker/dashboard/view/book_tracker_dashboard_screen.dart';
 import '../features/book_tracker/settings_tab/view/faq_screen.dart';
 import '../features/expense_tracker/expense_tracker_home_screen.dart';
@@ -54,6 +55,12 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
+      path: Routes.bookFilters,
+      builder: (BuildContext context, GoRouterState state) {
+        return const BookFiltersScreen();
+      },
+    ),
+    GoRoute(
       path: Routes.dummyRoute,
       builder: (BuildContext context, GoRouterState state) {
         return Container(color: Theme.of(context).colorScheme.surface);
@@ -68,6 +75,7 @@ class Routes {
   static final String dashboard = appconfig.dashboardPath;
   static const String appWebView = '/appWebView';
   static const String faq = '/faq';
+  static const String bookFilters = '/bookFilters';
   static const String dummyRoute = '/dummyRoute';
 }
 

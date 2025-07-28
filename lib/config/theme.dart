@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../core/constants/color_constants.dart';
 import '../main/main_common.dart';
 
@@ -20,6 +22,36 @@ class AppTheme {
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorLight,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors().primary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors().primary,
+        foregroundColor: Colors.white,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: ColorConstants.secondary300,
+          fontWeight: FontWeight.w400,
+          fontSize: 14.sp,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: ColorConstants.secondary50),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors().primary.customOpacity(0.6)),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: ColorConstants.secondary50),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        labelStyle: const TextStyle(
+          color: ColorConstants.secondary300,
+          fontSize: 16,
+        ),
+        iconColor: ColorConstants.secondary300,
+        suffixIconColor: ColorConstants.secondary300,
+        prefixIconColor: ColorConstants.secondary300,
       ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors().primary,
@@ -43,6 +75,36 @@ class AppTheme {
       scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColorDark,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors().primary,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors().primary,
+        foregroundColor: Colors.white,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: ColorConstants.secondary50,
+          fontWeight: FontWeight.w400,
+          fontSize: 14.sp,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: ColorConstants.secondary400),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors().primary.customOpacity(0.6)),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: ColorConstants.secondary400),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        labelStyle: const TextStyle(
+          color: ColorConstants.secondary100,
+          fontSize: 16,
+        ),
+        iconColor: ColorConstants.secondary100,
+        suffixIconColor: ColorConstants.secondary100,
+        prefixIconColor: ColorConstants.secondary100,
       ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors().primary,

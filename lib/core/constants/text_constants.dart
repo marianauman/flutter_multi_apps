@@ -34,4 +34,15 @@ class TextConstants {
   static const String faqs = 'FAQs';
   static const String faqsDescription =
       'Frequently asked questions and answers';
+  static const String applyFilters = 'Apply Filters';
+  static const String title = 'Title';
+  static const String author = 'Author';
+  static const String isReadable = 'Is Readable';
+  static const String enterTitle = 'Enter Book Title';
+  static const String enterAuthor = 'Enter Book Author';
+  static const String filters = 'Filters';
+  static const String appliedFilters = 'Applied Filters';
+  static const String pleaseEnterTitleOrAuthor =
+      'Please apply at least one filter';
+  static const String error = 'Error';
 }

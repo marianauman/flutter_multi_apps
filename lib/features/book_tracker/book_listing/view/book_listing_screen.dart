@@ -4,9 +4,11 @@ import 'package:flutter_multi_apps/core/utils/app_extensions.dart';
 import 'package:flutter_multi_apps/features/book_tracker/book_listing/provider/book_listing_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../config/routes.dart';
 import '../../../../core/constants/text_constants.dart';
 import '../../../../shared/widgets/base_screen.dart';
 import '../../../../shared/widgets/custom_ink_well.dart';
+import 'widgets/book_applied_filters.dart';
 import 'widgets/book_listing_list_cell.dart';
 import 'widgets/book_listing_skeleton.dart';
 
@@ -74,6 +76,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen>
       loaderScreen: BookListingSkeleton(),
       isEmpty: state.booksListing.books.isEmpty,
       actions: [_buildRefreshButton(context: context)],
+      floatingActionButton: _buildFilterButton(context: context),
       child: RefreshIndicator(
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
         onRefresh: () async {
@@ -83,6 +86,7 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen>
           padding: EdgeInsets.symmetric(horizontal: 15.r),
           child: Column(
             children: [
+              BookAppliedFilters(),
               Expanded(
                 child: ListView.separated(
                   controller: _scrollController,
@@ -128,6 +132,15 @@ class _BookListingScreenState extends ConsumerState<BookListingScreen>
         Icons.refresh,
         color: Theme.of(context).colorScheme.onPrimary,
       ),
+    );
+  }
+
+  Widget _buildFilterButton({required BuildContext context}) {
+    return FloatingActionButton(
+      onPressed: () {
+        NavigationService.push(Routes.bookFilters);
+      },
+      child: Icon(Icons.filter_alt_outlined),
     );
   }
 }
