@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import '../../shared/widgets/no_internet_dialog.dart';
+import '../constants/app_constants.dart';
 import 'connectivity_shared_instance.dart';
 
 class DioSharedInstance {
@@ -17,9 +17,9 @@ class DioSharedInstance {
   Dio _createDio() {
     final dio = Dio();
 
-    dio.options.connectTimeout = Duration(seconds: 10);
-    dio.options.receiveTimeout = Duration(seconds: 20);
-    dio.options.sendTimeout = Duration(seconds: 15);
+    dio.options.connectTimeout = const Duration(seconds: 10);
+    dio.options.receiveTimeout = const Duration(seconds: 20);
+    dio.options.sendTimeout = const Duration(seconds: 15);
     dio.options.responseType = ResponseType.json;
     dio.options.contentType = 'application/json';
 
@@ -93,14 +93,12 @@ class ConnectivityInterceptor extends Interceptor {
   ) async {
     final result = await ConnectivitySharedInstance().isConnected();
     if (!result) {
-      showNoInternetDialog(() {
-        _retryRequest(options, handler);
-      });
       handler.reject(
         DioException(
           requestOptions: options,
           type: DioExceptionType.connectionError,
-          error: 'No Internet Connection',
+          error: DioApiError.noInternet,
+          message: 'No Internet Connection',
         ),
       );
     } else {
@@ -117,37 +115,31 @@ class ErrorInterceptor extends Interceptor {
         DioException(
           requestOptions: err.requestOptions,
           type: DioExceptionType.badResponse,
-          error: 'Unauthorized',
+          error: DioApiError.unauthorized,
           response: err.response,
-          message: err.message,
+          message: 'Unauthorized',
         ),
       );
     } else if (err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.receiveTimeout ||
         err.type == DioExceptionType.sendTimeout) {
-      showNoInternetDialog(() {
-        _retryRequest(err.requestOptions);
-      });
-      handler.reject(
-        DioException(
-          requestOptions: err.requestOptions,
-          type: DioExceptionType.unknown,
-          error: 'Timeout Error',
-          response: err.response,
-          message: err.message,
-        ),
-      );
-    } else if (err.type == DioExceptionType.connectionError) {
-      showNoInternetDialog(() {
-        _retryRequest(err.requestOptions);
-      });
       handler.reject(
         DioException(
           requestOptions: err.requestOptions,
           type: DioExceptionType.connectionError,
-          error: 'Connection Error',
+          error: DioApiError.timeout,
           response: err.response,
-          message: err.message,
+          message: 'Timeout Error',
+        ),
+      );
+    } else if (err.type == DioExceptionType.connectionError) {
+      handler.reject(
+        DioException(
+          requestOptions: err.requestOptions,
+          type: DioExceptionType.connectionError,
+          error: DioApiError.noInternet,
+          response: err.response,
+          message: 'Connection Error',
         ),
       );
     } else if (err.type == DioExceptionType.badResponse) {
@@ -155,9 +147,9 @@ class ErrorInterceptor extends Interceptor {
         DioException(
           requestOptions: err.requestOptions,
           type: DioExceptionType.badResponse,
-          error: 'Bad Response',
+          error: DioApiError.badResponse,
           response: err.response,
-          message: err.message,
+          message: 'Bad Response',
         ),
       );
     } else if (err.type == DioExceptionType.unknown) {
@@ -165,63 +157,15 @@ class ErrorInterceptor extends Interceptor {
         DioException(
           requestOptions: err.requestOptions,
           type: DioExceptionType.unknown,
-          error: 'Unknown Error',
+          error: DioApiError.unknown,
           response: err.response,
-          message: err.message,
+          message: 'Unknown Error',
         ),
       );
+    } else {
+      // If no specific error type is handled, continue with the original error
+      handler.next(err);
     }
-
-    handler.next(err);
   }
 }
 
-Future<void> _retryRequest(
-  RequestOptions options, [
-  RequestInterceptorHandler? handler,
-]) async {
-  try {
-    final isConnected = await ConnectivitySharedInstance().isConnected();
-    if (!isConnected) {
-      return;
-    }
-
-    // Create a new Dio instance for the retry
-    final dio = Dio();
-    dio.options.connectTimeout = Duration(seconds: 10);
-    dio.options.receiveTimeout = Duration(seconds: 20);
-    dio.options.sendTimeout = Duration(seconds: 15);
-    dio.options.responseType = ResponseType.json;
-    dio.options.contentType = 'application/json';
-    dio.options.baseUrl = options.baseUrl;
-
-    // Make the retry request
-    final response = await dio.request(
-      options.path,
-      data: options.data,
-      queryParameters: options.queryParameters,
-      options: Options(method: options.method, headers: options.headers),
-    );
-
-    // If we have a handler, resolve the original request
-    if (handler != null) {
-      handler.resolve(response);
-    }
-  } catch (error) {
-    // If retry fails, show dialog again
-    showNoInternetDialog(() {
-      _retryRequest(options, handler);
-    });
-
-    // If we have a handler, reject the original request
-    if (handler != null) {
-      handler.reject(
-        DioException(
-          requestOptions: options,
-          type: DioExceptionType.connectionError,
-          error: 'Retry failed: $error',
-        ),
-      );
-    }
-  }
-}

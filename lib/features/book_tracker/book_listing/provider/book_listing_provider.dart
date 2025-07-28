@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../shared/widgets/no_internet_dialog.dart';
 import '../model/book_model.dart';
 import 'book_listing_service.dart';
 import 'book_listing_state.dart';
@@ -43,6 +44,13 @@ class BookListingProvider extends StateNotifier<BookListingState> {
         isLoading: false,
         isMoreLoading: false,
       );
+      if (e is DioApiError) {
+        if (e == DioApiError.noInternet) {
+          showNoInternetDialog(() {
+            fetchBookListing(page: page);
+          });
+        }
+      }
     }
   }
 

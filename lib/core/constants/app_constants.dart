@@ -2,6 +2,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum AppThemeMode { system, light, dark }
 
+enum DioApiError {
+  none,
+  noInternet,
+  unauthorized,
+  timeout,
+  badResponse,
+  unknown,
+}
+
 enum BookStatus { none, wantToRead, reading, finished }
 
 enum BookAccessType { none, public, borrowable, printdisabled }
