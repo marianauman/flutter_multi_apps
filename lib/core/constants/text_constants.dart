@@ -37,7 +37,7 @@ class TextConstants {
   static const String applyFilters = 'Apply Filters';
   static const String title = 'Title';
   static const String author = 'Author';
-  static const String isReadable = 'Is Readable';
+  static const String isReadable = 'Reading Link Available';
   static const String enterTitle = 'Enter Book Title';
   static const String enterAuthor = 'Enter Book Author';
   static const String filters = 'Filters';

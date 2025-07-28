@@ -19,7 +19,6 @@ class BookFiltersScreen extends ConsumerStatefulWidget {
 class _BookFiltersScreenState extends ConsumerState<BookFiltersScreen> {
   final _titleController = TextEditingController();
   final _authorController = TextEditingController();
-  bool _isReadable = false;
 
   @override
   void initState() {
@@ -30,14 +29,12 @@ class _BookFiltersScreenState extends ConsumerState<BookFiltersScreen> {
   void convertMapToFilters(Map<String, dynamic> map) {
     _titleController.text = map['title'] ?? '';
     _authorController.text = map['author'] ?? '';
-    _isReadable = map['is_readable'] ?? false;
   }
 
   Map<String, dynamic> convertFiltersToMap() {
     return {
       'title': _titleController.text,
       'author': _authorController.text,
-      'is_readable': _isReadable,
     };
   }
 
@@ -79,7 +76,8 @@ class _BookFiltersScreenState extends ConsumerState<BookFiltersScreen> {
               btnTitle: TextConstants.applyFilters,
               icon: Icons.filter_alt_outlined,
               onTap: () {
-                if(_titleController.text.isNotEmpty || _authorController.text.isNotEmpty || _isReadable) {
+                if (_titleController.text.isNotEmpty ||
+                    _authorController.text.isNotEmpty) {
                   NavigationService.pop();
                   ref
                       .read(bookListingProvider.notifier)
@@ -128,8 +126,6 @@ class _BookFiltersScreenState extends ConsumerState<BookFiltersScreen> {
             20.verticalSpace,
             _buildAuthorField(),
             20.verticalSpace,
-            // _buildIsReadableField(),
-            // 20.verticalSpace,
           ],
         ),
       ),

@@ -24,16 +24,12 @@ class BookListingProvider extends StateNotifier<BookListingState> {
     if (state.bookAppliedFiltersData.isNotEmpty) {
       String title = state.bookAppliedFiltersData['title'] ?? '';
       String author = state.bookAppliedFiltersData['author'] ?? '';
-      bool isReadable = state.bookAppliedFiltersData['is_readable'] ?? false;
       String queryString = '';
       if (title.isNotEmpty) {
         queryString += '&title=$title';
       }
       if (author.isNotEmpty) {
         queryString += '&author=$author';
-      }
-      if (isReadable) {
-        queryString += '&isReadable=$isReadable';
       }
       return queryString.trim().isEmpty ? '&q=fiction' : queryString;
     }
