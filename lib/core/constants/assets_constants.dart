@@ -7,6 +7,8 @@ class AssetsConstants {
 
   //Flavour based assets i.e book_tracker, expense_tracker, etc
   static final String splash = '$baseAssetsPath${appconfig.flavorAssetsFolder}/splash.json';
+  static final String appIcon =
+      '$baseAssetsPath${appconfig.flavorAssetsFolder}/app_icon.png';
 
   //General pngs
   static final String successIcon = '${baseAssetsCommonPath}icon_success.png';
