@@ -45,7 +45,7 @@ class BookListingProvider extends StateNotifier<BookListingState> {
         isMoreLoading: false,
       );
       if (e is DioApiError) {
-        if (e == DioApiError.noInternet) {
+        if (e == DioApiError.noInternet || e == DioApiError.timeout) {
           showNoInternetDialog(() {
             fetchBookListing(page: page);
           });
